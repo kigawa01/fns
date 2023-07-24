@@ -1,4 +1,3 @@
-import component.Root
 import react.create
 import react.dom.client.createRoot
 import web.dom.document
