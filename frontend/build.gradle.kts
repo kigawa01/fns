@@ -2,8 +2,8 @@ plugins {
   kotlin("js")
 }
 
-group = "net.kigawa"
-version = "0.0.1"
+group = project.property("project.group") as String
+version = project.property("project.version") as String
 val reactVersion = project.property("react.version") as String
 val reactRouterVersion = project.property("react-router.version") as String
 val emotionVersion = project.property("emotion.version") as String

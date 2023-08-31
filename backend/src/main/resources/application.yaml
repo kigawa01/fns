@@ -1,0 +1,10 @@
+ktor:
+  development: true
+  deployment:
+    watch:
+      - classes
+      - resources
+    port: 8080
+  application:
+    modules:
+      - net.kigawa.fns.backend.FnsApplicationKt.module

@@ -1,30 +1,37 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.springframework.boot") version "3.1.1"
-  id("io.spring.dependency-management") version "1.1.0"
   kotlin("jvm")
-  kotlin("plugin.spring") version "1.8.22"
-  kotlin("plugin.jpa") version "1.8.22"
+  id("io.ktor.plugin") version "2.3.3"
 }
 
-group = "net.kigawa"
-version = "0.0.1-SNAPSHOT"
+val ktorVersion = project.property("ktor.version") as String
+val kotlinVersion = project.property("kotlin.version") as String
+val logbackVersion= project.property("logback.version") as String
+group = project.property("project.group") as String
+version = project.property("project.version") as String
 
 java {
   sourceCompatibility = JavaVersion.VERSION_17
 }
 
+application {
+  mainClass.set("net.kigawa.fns.backend.FnsApplicationKt")
+
+  val isDevelopment: Boolean = project.ext.has("development")
+  applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-  implementation("org.springframework.boot:spring-boot-starter-web")
-  implementation("org.jetbrains.kotlin:kotlin-reflect")
-  
-  runtimeOnly("com.mysql:mysql-connector-j")
-  
-  developmentOnly("org.springframework.boot:spring-boot-devtools")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  implementation(project(":object"))
+  implementation("io.ktor:ktor-server-core-jvm")
+  implementation("io.ktor:ktor-server-netty-jvm")
+  implementation("io.ktor:ktor-server-config-yaml")
+  implementation("ch.qos.logback:logback-classic:$logbackVersion")
+
+  testImplementation("io.ktor:ktor-server-tests-jvm")
+  testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
 
 tasks.withType<KotlinCompile> {
