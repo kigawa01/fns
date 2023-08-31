@@ -1,3 +1,3 @@
 rootProject.name = "fns"
-include("object")
+include("share")
 include("backend","frontend")

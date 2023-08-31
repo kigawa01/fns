@@ -14,6 +14,7 @@ val kotlinWrapperReactRouterVersion = "$reactRouterVersion$kotlinWrappersPrefix"
 val kotlinWrapperEmotionVersion = "$emotionVersion$kotlinWrappersPrefix"
 
 dependencies {
+  implementation(project(":share"))
   implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
   implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinWrapperReactVersion")
   implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinWrapperReactVersion")

@@ -24,7 +24,7 @@ application {
 
 
 dependencies {
-  implementation(project(":object"))
+  implementation(project(":share"))
   implementation("io.ktor:ktor-server-core-jvm")
   implementation("io.ktor:ktor-server-netty-jvm")
   implementation("io.ktor:ktor-server-config-yaml")

@@ -10,6 +10,7 @@ kotlin{
   }
 }
 repositories {
+  mavenCentral()
 }
 
 dependencies {
