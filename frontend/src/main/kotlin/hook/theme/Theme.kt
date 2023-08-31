@@ -1,59 +1,48 @@
 package hook.theme
 
+import emotion.react.css
+import js.promise.Promise
 import react.*
+import react.dom.html.ReactHTML.div
+import web.cssom.Color
+import web.cssom.string
+import web.fonts.FontFace
 
-//val ThemeContext: Context<Theme> = React.createContext(initTheme())
+val ThemeContext: Context<ThemeJson> = createContext(ThemeJson())
 private var setTheme: StateSetter<ThemeJson>? = null
 
-external interface ThemeProps : Props {
+external interface ThemeProviderProps : ProviderProps<ThemeJson> {
 }
 
-class Theme : FC<ThemeProps> {
-  override var displayName: String? = ""
-
-}
-
-val Root = FC<ThemeProps>("Welcome") { props ->
+val ThemeProvider = FC<ThemeProviderProps>("ThemeProvider") { props ->
   val (theme, setTheme) = useState(ThemeJson())
   val (font, setFont) = useState("")
   hook.theme.setTheme = setTheme
-  const nonNullTheme = theme == undefined ? initTheme () : theme
 
-  useEffect(() => {
-    highlight.initHighlighting()
-  }, [])
-
-  useEffect(() => {
-    const promises = theme . fonts . map ((font) => {
-    if (debug) console.debug(font)
-    return new FontFace (font.name, "url("+font.url+")").load()
-  })
-
-    Promise.all(promises).then((fontFaces) => {
-      fontFaces.forEach((font) => {
-        (document.fonts as FontFaceSet).add(font)
-      })
-      let fontsStr = ""
-      for (const font of theme.fonts) {
-      fontsStr = fontsStr == "" ? fontsStr+font.name : fontsStr+","+font.name
+  useEffect(theme) {
+    val promises = theme.fonts.map { font ->
+      return@map FontFace(font.name, "url(" + font.url + ")").load()
     }
-      setFont(fontsStr)
-    }, (e: DOMException) => {
-    console.error(e)
-  })
-  }, [theme])
 
-  return < ThemeContext.Provider value ={ nonNullTheme } >
-  <div style ={
-  { color: nonNullTheme.textBase, backgroundColor: nonNullTheme.base,
-    fontFamily: font
+    val fontsStr = theme.fonts.joinToString(separator = ",") { it.name }
+    setFont(fontsStr)
+    Promise.all(promises.toTypedArray()).then({}, { console.error(it) })
   }
-} >
-    { props.children }
-  </div>
-  </ThemeContext.Provider>
+
+  return@FC ThemeContext.Provider {
+    value = theme
+    div {
+      css {
+        color = Color(theme.textBase)
+        backgroundColor = Color(theme.base)
+        fontFamily = string(font)
+      }
+
+      children = props.children
+    }
+  }
 }
 
-export function useTheme(): Theme {
+fun useTheme(): ThemeJson {
   return useContext(ThemeContext)
 }
