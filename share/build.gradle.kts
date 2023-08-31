@@ -5,8 +5,11 @@ plugins {
 group = project.property("project.group") as String
 version = project.property("project.version") as String
 
-kotlin{
+kotlin {
   jvm {
+  }
+  js(IR) {
+    browser()
   }
 }
 repositories {

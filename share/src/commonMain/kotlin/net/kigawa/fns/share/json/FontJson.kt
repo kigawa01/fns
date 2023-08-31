@@ -1,4 +1,4 @@
-package hook.theme
+package net.kigawa.fns.share.json
 
 class FontJson {
   val name: String = ""
