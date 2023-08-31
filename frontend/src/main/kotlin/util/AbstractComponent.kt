@@ -13,5 +13,5 @@ abstract class AbstractComponent<T : Props>(displayName: String? = null) {
     else FC(displayName, block)
   }
 
-  abstract fun ChildrenBuilder.component(props: T)
+  protected abstract fun ChildrenBuilder.component(props: T)
 }

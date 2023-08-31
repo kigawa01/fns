@@ -1,21 +1,20 @@
 import component.header.Header
-import hook.theme.Theme
-import react.FC
+import hook.theme.ThemeProvidor
+import react.ChildrenBuilder
 import react.Props
 import react.dom.html.ReactHTML.div
 import react.router.dom.BrowserRouter
+import util.AbstractComponent
 
-external interface RootProps : Props {
-}
-
-val Root = FC<RootProps>("Root") { props ->
-
-  return@FC div {
-
-    BrowserRouter {
-      Theme.fc {
-        Header {}
+object Root : AbstractComponent<Props>() {
+  override fun ChildrenBuilder.component(props: Props) {
+    div {
+      BrowserRouter {
+        ThemeProvidor.fc {
+          Header {}
+        }
       }
     }
   }
+
 }

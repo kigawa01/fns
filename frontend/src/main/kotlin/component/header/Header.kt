@@ -1,7 +1,7 @@
 package component.header
 
 import emotion.react.css
-import hook.theme.Theme
+import hook.theme.ThemeProvidor
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.header
@@ -11,7 +11,7 @@ import web.cssom.px
 external interface HeaderProps : Props
 
 val Header = FC<HeaderProps>("Header") { props ->
-  val theme = Theme.use()
+  val theme = ThemeProvidor.use()
 
   return@FC header {
     css {
