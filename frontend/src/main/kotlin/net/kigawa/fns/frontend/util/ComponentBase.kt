@@ -1,10 +1,10 @@
-package util
+package net.kigawa.fns.frontend.util
 
 import react.ChildrenBuilder
 import react.FC
 import react.Props
 
-abstract class AbstractComponent<T : Props>(displayName: String? = null) {
+abstract class ComponentBase<T : Props>(displayName: String? = null) {
   val fc: FC<T>
   private val block: ChildrenBuilder.(props: T) -> Unit = { component(it) }
 

@@ -1,3 +1,5 @@
+package net.kigawa.fns.frontend
+
 import react.create
 import react.dom.client.createRoot
 import web.dom.document

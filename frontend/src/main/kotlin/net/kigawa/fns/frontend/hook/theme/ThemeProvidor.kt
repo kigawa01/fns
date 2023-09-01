@@ -1,4 +1,4 @@
-package hook.theme
+package net.kigawa.fns.frontend.hook.theme
 
 import emotion.react.Global
 import emotion.react.css
@@ -7,7 +7,7 @@ import js.promise.Promise
 import net.kigawa.fns.share.json.ThemeJson
 import react.*
 import react.dom.html.ReactHTML.div
-import util.AbstractComponent
+import net.kigawa.fns.frontend.util.ComponentBase
 import web.cssom.Color
 import web.cssom.Globals.Companion.unset
 import web.cssom.Selector
@@ -15,7 +15,7 @@ import web.cssom.px
 import web.cssom.string
 import web.fonts.FontFace
 
-object ThemeProvidor : AbstractComponent<ProviderProps<ThemeJson>>() {
+object ThemeProvidor : ComponentBase<ProviderProps<ThemeJson>>() {
 
   private val ThemeContext: Context<ThemeJson> = createContext(ThemeJson())
   private var themeSetter: StateSetter<ThemeJson>? = null

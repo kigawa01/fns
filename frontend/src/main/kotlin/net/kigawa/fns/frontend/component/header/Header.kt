@@ -1,7 +1,7 @@
-package component.header
+package net.kigawa.fns.frontend.component.header
 
 import emotion.react.css
-import hook.theme.ThemeProvidor
+import net.kigawa.fns.frontend.hook.theme.ThemeProvidor
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.header
