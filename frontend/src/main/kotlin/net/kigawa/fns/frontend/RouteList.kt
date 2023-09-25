@@ -5,7 +5,9 @@ import web.history.history
 import web.url.URL
 
 enum class RouteList(val strPath: String) {
-  LOGIN("/login");
+  LOGIN("/login"),
+  TOP("/"),
+  ;
 
   fun url(): URL {
     return UrlUtil.createURL(strPath)
