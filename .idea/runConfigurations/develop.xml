@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="develop" type="CompoundRunConfigurationType">
-    <toRun name="fns [browserRun]" type="GradleRunConfiguration" />
+    <toRun name="fns:frontend [browserRun]" type="GradleRunConfiguration" />
     <toRun name="ktor" type="KtorApplicationConfigurationType" />
     <method v="2" />
   </configuration>

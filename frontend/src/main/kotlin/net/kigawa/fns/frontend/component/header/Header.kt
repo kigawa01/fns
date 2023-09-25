@@ -1,22 +1,43 @@
 package net.kigawa.fns.frontend.component.header
 
 import emotion.react.css
-import net.kigawa.fns.frontend.hook.theme.ThemeProvidor
-import react.FC
+import net.kigawa.fns.frontend.component.Icon
+import net.kigawa.fns.frontend.util.hook.ThemeProvider
+import net.kigawa.fns.frontend.util.ComponentBase
+import net.kigawa.fns.share.Config
+import react.ChildrenBuilder
 import react.Props
-import react.dom.html.ReactHTML.header
+import react.dom.html.ReactHTML
 import web.cssom.Color
+import web.cssom.Display
 import web.cssom.px
+import web.cssom.rem
 
-external interface HeaderProps : Props
+object Header : ComponentBase<Props>() {
+  override fun ChildrenBuilder.component(props: Props) {
+    val theme = ThemeProvider.use()
 
-val Header = FC<HeaderProps>("Header") { props ->
-  val theme = ThemeProvidor.use()
+    ReactHTML.header {
+      css {
+        backgroundColor = Color(theme.base)
+        paddingLeft = 30.px
+        paddingTop = 5.px
+        paddingBottom = 5.px
+        display = Display.flex
+        fontSize = 0.9.rem
+        color = Color(theme.textAccent)
 
-  return@FC header {
-    css {
-      backgroundColor = Color(theme.base)
-      height = 40.px
+        ReactHTML.h1 {
+          marginLeft = 50.px
+        }
+      }
+      Icon.fc {
+        height = 35.px
+      }
+      ReactHTML.h1 {
+        +Config.PROJECT_NAME
+      }
     }
   }
+
 }

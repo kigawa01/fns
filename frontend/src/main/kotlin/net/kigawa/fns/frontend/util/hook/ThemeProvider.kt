@@ -1,4 +1,4 @@
-package net.kigawa.fns.frontend.hook.theme
+package net.kigawa.fns.frontend.util.hook
 
 import emotion.react.Global
 import emotion.react.css
@@ -15,7 +15,7 @@ import web.cssom.px
 import web.cssom.string
 import web.fonts.FontFace
 
-object ThemeProvidor : ComponentBase<ProviderProps<ThemeJson>>() {
+object ThemeProvider : ComponentBase<ProviderProps<ThemeJson>>() {
 
   private val ThemeContext: Context<ThemeJson> = createContext(ThemeJson())
   private var themeSetter: StateSetter<ThemeJson>? = null
