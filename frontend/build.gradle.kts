@@ -1,4 +1,5 @@
 plugins {
+  id("net.kigawa.fns.java-conventions")
   kotlin("js")
 }
 
@@ -21,21 +22,21 @@ dependencies {
   implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$kotlinWrapperReactRouterVersion")
   implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinWrapperEmotionVersion")
 
-  implementation(npm("postcss", "8.2.6"))
-  implementation(npm("postcss-loader", "4.2.0"))
+//  implementation(npm("postcss", "8.2.6"))
+//  implementation(npm("postcss-loader", "4.2.0"))
 }
 
-kotlin {
-  js(IR) {
-    browser {
-      runTask {
-        devServer?.apply {
-          port = 8081
-          proxy = mutableMapOf(Pair("/api", "http://127.0.0.1:8080"))
-          static !!.add("./resources/public")
-        }
-      }
-    }
-    binaries.executable()
-  }
-}
+//kotlin {
+//  js(IR) {
+//    browser {
+//      runTask {
+//        devServer?.apply {
+//          port = 8081
+//          proxy = mutableMapOf(Pair("/api", "http://127.0.0.1:8080"))
+//          static !!.add("./resources/public")
+//        }
+//      }
+//    }
+//    binaries.executable()
+//  }
+//}

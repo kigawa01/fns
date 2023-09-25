@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+  id("net.kigawa.fns.java-conventions")
   kotlin("jvm")
   id("io.ktor.plugin") version "2.3.3"
 }

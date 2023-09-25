@@ -1,5 +1,6 @@
 plugins {
-  kotlin("multiplatform") version "1.8.22"
+  id("net.kigawa.fns.java-conventions")
+  kotlin("multiplatform")
 }
 
 group = project.property("project.group") as String
@@ -9,7 +10,7 @@ kotlin {
   jvm {
   }
   js(IR) {
-    browser()
+    browser {}
   }
 }
 repositories {
