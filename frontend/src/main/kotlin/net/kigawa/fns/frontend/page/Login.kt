@@ -7,7 +7,7 @@ import react.Props
 object Login : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
     PageBase.fc {
-      +"aaaaa"
+      + "aaaaa"
     }
   }
 

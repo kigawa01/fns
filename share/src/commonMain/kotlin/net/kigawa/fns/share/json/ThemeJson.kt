@@ -1,8 +1,8 @@
 package net.kigawa.fns.share.json
 
 class ThemeJson {
-  val main: String = ""
-  val base: String = "#444444"
+  val main: String = "#444444"
+  val base: String = "#f5f5f5"
   val base2: String = ""
   val accent: String = ""
   val plain: String = ""

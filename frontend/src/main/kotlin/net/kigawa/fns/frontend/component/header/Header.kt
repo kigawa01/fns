@@ -22,7 +22,7 @@ object Header : ComponentBase<Props>() {
 
     header {
       css {
-        backgroundColor = Color(theme.base)
+        backgroundColor = Color(theme.main)
         paddingLeft = 30.px
         paddingRight = 30.px
         paddingTop = 5.px

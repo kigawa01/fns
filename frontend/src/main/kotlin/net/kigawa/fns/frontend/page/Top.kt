@@ -7,7 +7,7 @@ import react.Props
 object Top : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
     PageBase.fc {
-      +"aaa"
+      + "aaa top"
     }
   }
 }
