@@ -6,7 +6,7 @@ import io.ktor.server.routing.*
 import net.kigawa.kutil.unitapi.annotation.Kunit
 
 @Kunit
-class Routes {
+class Routing {
 
   fun configureRouting(application: Application) {
     application.routing {

@@ -6,7 +6,7 @@ import net.kigawa.kutil.unitapi.component.container.UnitContainer
 import net.kigawa.kutil.unitapi.registrar.InstanceRegistrar
 import net.kigawa.kutil.unitapi.registrar.ResourceRegistrar
 
-class App {
+class FnsApplication {
   private val container = UnitContainer.create()
   fun registerModules(application: Application): Modules {
     container.getUnit(InstanceRegistrar::class.java).apply {
@@ -18,11 +18,11 @@ class App {
   }
 
   companion object {
-    val app = App()
+    val app = FnsApplication()
 
     @JvmStatic
     fun main(args: Array<String>) {
-      App()
+      FnsApplication()
       EngineMain.main(args)
     }
   }

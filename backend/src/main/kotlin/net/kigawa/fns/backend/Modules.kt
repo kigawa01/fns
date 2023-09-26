@@ -5,12 +5,12 @@ import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
-import net.kigawa.fns.backend.plugins.Routes
+import net.kigawa.fns.backend.plugins.Routing
 import net.kigawa.kutil.unitapi.annotation.Kunit
 
 @Kunit
 class Modules(
-  private val routes: Routes
+  private val routes: Routing
 ) {
   fun module(application: Application) {
     // Please read the jwt property from the config file if you are using EngineMain
@@ -38,5 +38,5 @@ class Modules(
 }
 
 fun Application.module() {
-  App.app.registerModules(this).module(this)
+  FnsApplication.app.registerModules(this).module(this)
 }

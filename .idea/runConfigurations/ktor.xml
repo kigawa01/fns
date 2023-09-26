@@ -4,7 +4,7 @@
     <option name="alternativeJrePath" />
     <option name="alternativeJrePathEnabled" value="false" />
     <option name="includeProvidedScope" value="true" />
-    <option name="mainClass" value="net.kigawa.fns.backend.App" />
+    <option name="mainClass" value="net.kigawa.fns.backend.FnsApplication" />
     <option name="passParentEnvs" value="true" />
     <option name="programParameters" value="" />
     <option name="shortenCommandLine" value="NONE" />
