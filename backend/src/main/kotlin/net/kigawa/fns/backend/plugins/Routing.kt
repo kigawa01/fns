@@ -3,14 +3,19 @@ package net.kigawa.fns.backend.plugins
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import net.kigawa.kutil.unitapi.annotation.Kunit
 
-fun Application.configureRouting() {
-  routing {
-    get("/") {
-      call.respondText("Hello World!")
-    }
-    get("/ap"){
-      call.respondText("ap")
+@Kunit
+class Routes {
+
+  fun configureRouting(application: Application) {
+    application.routing {
+      get("/") {
+        call.respondText("Hello World!")
+      }
+      get("/api") {
+        call.respondText("ap")
+      }
     }
   }
 }

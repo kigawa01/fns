@@ -7,4 +7,10 @@ ktor:
     port: 8080
   application:
     modules:
-      - net.kigawa.fns.backend.FnsApplicationKt.module
+      - net.kigawa.fns.backend.ModulesKt.module
+
+jwt:
+  secret: ""
+  issuer: ""
+  audience: ""
+  realm: ""
