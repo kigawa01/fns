@@ -10,7 +10,6 @@ ktor:
       - net.kigawa.fns.backend.ModulesKt.module
 
 jwt:
-  secret: ""
-  issuer: ""
-  audience: ""
-  realm: ""
+  secret: "sdsdgrtufghaefdhtrhrsgfjykxfthaeryreghfdz"
+  issuer: "ISSUER"
+  audience: "audience"

@@ -1,6 +1,7 @@
 plugins {
   id("net.kigawa.fns.java-conventions")
   kotlin("multiplatform")
+  kotlin("plugin.serialization") version "1.9.20-RC"
 }
 
 group = project.property("project.group") as String
@@ -18,4 +19,5 @@ repositories {
 }
 
 dependencies {
+  commonMainImplementation(Depends.Ktor.serializationKotlinxJson)
 }

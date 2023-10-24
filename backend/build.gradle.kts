@@ -1,6 +1,3 @@
-import dependencies.ProjectConfig
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
   id("net.kigawa.fns.java-conventions")
   kotlin("jvm")
@@ -22,12 +19,14 @@ application {
   val isDevelopment: Boolean = project.ext.has("development")
   applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
-fun DependencyHandler.ktor(id: String, version: String = ProjectConfig.Ktor.VERSION): Dependency? {
-  return implementation("io.ktor:$id:$version")
+fun DependencyHandler.ktor(
+  id: String, version: String = Depends.Ktor.version
+): Dependency? {
+  return implementation(Depends.Ktor.strId(id, version))
 }
 
-fun DependencyHandler.ktorLib(id: String, version: String = ProjectConfig.Ktor.LIB_VERSION): Dependency? {
-  return implementation("io.ktor:$id:$version")
+fun DependencyHandler.ktorLib(id: String, version: String = Depends.KtorLib.version): Dependency? {
+  return implementation(Depends.KtorLib.strId(id, version))
 }
 
 dependencies {
@@ -38,21 +37,17 @@ dependencies {
   ktor("ktor-server-core-jvm")
   ktor("ktor-server-netty-jvm")
   ktor("ktor-server-config-yaml")
+  ktor("ktor-server-resources")
+  ktor("ktor-server-content-negotiation")
   ktorLib("ktor-auth")
   ktorLib("ktor-auth-jwt")
   ktorLib("ktor-jackson")
+  implementation(Depends.Ktor.serializationKotlinxJson)
   implementation("ch.qos.logback:logback-classic:$logbackVersion")
   implementation("net.kigawa.kutil:kutil-unit:4.4.0")
 
-  testImplementation("io.ktor:ktor-server-tests-jvm:2.3.4")
+  testImplementation("io.ktor:ktor-server-tests-jvm:2.3.5")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
-}
-
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs += "-Xjsr305=strict"
-    jvmTarget = "17"
-  }
 }
 
 tasks.withType<Test> {
