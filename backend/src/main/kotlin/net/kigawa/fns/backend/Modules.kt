@@ -10,8 +10,8 @@ import io.ktor.server.config.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.resources.*
 import net.kigawa.fns.backend.auth.Token
-import net.kigawa.fns.backend.db.DatabaseManager
-import net.kigawa.fns.backend.route.Routing
+import net.kigawa.fns.backend.service.DatabaseManager
+import net.kigawa.fns.backend.service.Routing
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
 

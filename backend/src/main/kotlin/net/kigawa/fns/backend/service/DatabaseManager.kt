@@ -1,4 +1,4 @@
-package net.kigawa.fns.backend.db
+package net.kigawa.fns.backend.service
 
 import io.ktor.server.config.*
 import net.kigawa.kutil.unitapi.annotation.ArgName
