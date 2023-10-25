@@ -43,7 +43,12 @@ dependencies {
   ktorLib("ktor-auth-jwt")
   ktorLib("ktor-jackson")
   implementation(Depends.Ktor.serializationKotlinxJson)
+  implementation(Depends.Exposed.strId("exposed-core"))
+  implementation(Depends.Exposed.strId("exposed-dao"))
+  implementation(Depends.Exposed.strId("exposed-jdbc"))
+  implementation(Depends.Exposed.strId("exposed-jodatime"))
   implementation("ch.qos.logback:logback-classic:$logbackVersion")
+  implementation("com.mysql:mysql-connector-j:8.1.0")
   implementation("net.kigawa.kutil:kutil-unit:4.4.0")
 
   testImplementation("io.ktor:ktor-server-tests-jvm:2.3.5")

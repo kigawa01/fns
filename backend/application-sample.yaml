@@ -14,7 +14,7 @@ jwt:
   issuer: "ISSUER"
   audience: "audience"
 db:
-  host: "localhost:3306"
-  database: "fns"
-  user: "fns"
-  password: ""
+  host: localhost:3006
+  database: fns
+  user: fns
+  password: fns-pass

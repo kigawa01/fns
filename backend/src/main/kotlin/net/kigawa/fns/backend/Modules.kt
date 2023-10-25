@@ -10,6 +10,7 @@ import io.ktor.server.config.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.resources.*
 import net.kigawa.fns.backend.auth.Token
+import net.kigawa.fns.backend.db.DatabaseManager
 import net.kigawa.fns.backend.route.Routing
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
@@ -17,10 +18,9 @@ import net.kigawa.kutil.unitapi.annotation.Kunit
 @Kunit
 class Modules(
   private val routes: Routing,
-  private val environment: ApplicationEnvironment,
   @ArgName("jwt.secret") private val secret: ApplicationConfigValue,
   @ArgName("jwt.issuer") private val issuer: ApplicationConfigValue,
-  @ArgName("jwt.audience") private val audience: ApplicationConfigValue,
+  private val databaseManager: DatabaseManager,
 ) {
   fun module(application: Application) {
     application.install(Resources)
@@ -49,6 +49,7 @@ class Modules(
     }
 
     routes.configureRouting(application)
+    databaseManager.init()
   }
 }
 
