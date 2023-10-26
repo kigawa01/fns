@@ -6,7 +6,7 @@
     <option name="includeProvidedScope" value="true" />
     <option name="mainClass" value="net.kigawa.fns.backend.FnsApplication" />
     <option name="passParentEnvs" value="true" />
-    <option name="programParameters" value="" />
+    <option name="programParameters" value="-config=backend/application.yaml" />
     <option name="shortenCommandLine" value="NONE" />
     <option name="vmParameters" value="" />
     <option name="workingDirectory" value="" />

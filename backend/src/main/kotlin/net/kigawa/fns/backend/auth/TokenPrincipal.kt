@@ -3,7 +3,7 @@ package net.kigawa.fns.backend.auth
 import io.ktor.server.auth.*
 
 
-data class Token(
+data class TokenPrincipal(
   val userid: Int,
   val type: String,
 ) : Principal {

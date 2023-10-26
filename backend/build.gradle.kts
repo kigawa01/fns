@@ -48,6 +48,7 @@ dependencies {
   implementation(Depends.Exposed.strId("exposed-jdbc"))
   implementation(Depends.Exposed.strId("exposed-jodatime"))
   implementation("ch.qos.logback:logback-classic:$logbackVersion")
+  implementation("org.mindrot:jbcrypt:0.4")
   implementation("com.mysql:mysql-connector-j:8.1.0")
   implementation("net.kigawa.kutil:kutil-unit:4.4.0")
 

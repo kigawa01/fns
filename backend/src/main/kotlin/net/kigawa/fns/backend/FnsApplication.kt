@@ -10,7 +10,7 @@ import net.kigawa.kutil.unitapi.registrar.ResourceRegistrar
 
 class FnsApplication {
   private val container = UnitContainer.create()
-  fun registerModules(application: Application): Modules {
+  fun loadModule(application: Application) {
     container.getUnit(InstanceRegistrar::class.java).apply {
       register(application)
       register(application.environment)
@@ -19,7 +19,7 @@ class FnsApplication {
       add(ConfigFinder::class.java)
     }
     container.getUnit(ResourceRegistrar::class.java).register(javaClass)
-    return container.getUnit(Modules::class.java)
+    container.getUnit(Modules::class.java).loadModule(application)
   }
 
   companion object {

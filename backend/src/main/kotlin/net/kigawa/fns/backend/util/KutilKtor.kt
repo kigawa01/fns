@@ -15,4 +15,10 @@ object KutilKtor {
   suspend fun resourceNotFound(call: ApplicationCall, response: ErrResponse) =
     respondErr(call, HttpStatusCode.NotFound, response)
 
+  suspend fun unauthorized(call: ApplicationCall, message: String) =
+    KutilKtor.unauthorized(call, ErrResponse(message))
+
+  suspend fun unauthorized(call: ApplicationCall, response: ErrResponse) =
+    respondErr(call, HttpStatusCode.Unauthorized, response)
+
 }
