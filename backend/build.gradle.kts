@@ -2,6 +2,7 @@ plugins {
   id("net.kigawa.fns.java-conventions")
   kotlin("jvm")
   id("io.ktor.plugin") version "2.3.3"
+  kotlin("plugin.serialization") version "1.9.20-RC"
 }
 
 val kotlinVersion = project.property("kotlin.version") as String

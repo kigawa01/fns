@@ -6,7 +6,6 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.config.*
-import net.kigawa.fns.backend.table.User
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
 import java.time.LocalDateTime
@@ -39,20 +38,19 @@ class TokenManager(
           if (type.isNull) return@validate null
           return@validate TokenPrincipal(id.asInt(), type.asString())
         }
-
       }
 
     }
 
   }
 
-  fun createAccessToken(id: Int,type) {
-    JWT.create()
+  fun createToken(id: Int, type: TokenType): String {
+    return JWT.create()
       .withAudience(audience.getString())
-      .withExpiresAt(Date.from(LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.UTC))) // 有効期限
-      .withClaim(TokenPrincipal.ID_NAME, result[User.id].value)
-      .withClaim(TokenPrincipal.TYPE_NAME, "")
+      .withExpiresAt(Date.from(LocalDateTime.now().plusHours(type.expireHour).toInstant(ZoneOffset.UTC)))
+      .withClaim(TokenPrincipal.ID_NAME, id)
+      .withClaim(TokenPrincipal.TYPE_NAME, type.name)
       .withIssuer(issuer.getString())
-//          .sign(algorithm)
+      .sign(algorithm)
   }
 }

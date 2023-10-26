@@ -14,6 +14,7 @@ class FnsApplication {
     container.getUnit(InstanceRegistrar::class.java).apply {
       register(application)
       register(application.environment)
+      register(application.log)
     }
     container.getUnit(UnitFinderComponent::class.java).apply {
       add(ConfigFinder::class.java)

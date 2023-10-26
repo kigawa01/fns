@@ -4,9 +4,9 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.resources.*
+import net.kigawa.fns.backend.auth.TokenManager
 import net.kigawa.fns.backend.service.DatabaseManager
 import net.kigawa.fns.backend.service.Routing
-import net.kigawa.fns.backend.auth.TokenManager
 import net.kigawa.kutil.unitapi.annotation.Kunit
 
 @Kunit
