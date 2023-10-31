@@ -1,10 +1,9 @@
-package net.kigawa.fns.share.json.auth
+package net.kigawa.fns.share.json.user
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginInfo(
+data class UserInfo(
   val username: String = "",
   val password: String = "",
-  val emailAddress: String = ""
 )
