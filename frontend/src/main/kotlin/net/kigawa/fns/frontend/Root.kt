@@ -1,6 +1,8 @@
 package net.kigawa.fns.frontend
 
+import emotion.react.css
 import js.core.jso
+import net.kigawa.fns.frontend.component.header.Header
 import net.kigawa.fns.frontend.page.Login
 import net.kigawa.fns.frontend.page.Top
 import net.kigawa.fns.frontend.util.ComponentBase
@@ -11,6 +13,8 @@ import react.create
 import react.dom.html.ReactHTML
 import react.router.RouterProvider
 import react.router.dom.createBrowserRouter
+import web.cssom.Auto
+import web.cssom.pct
 
 object Root : ComponentBase<Props>() {
   private val router = createBrowserRouter(
@@ -27,12 +31,12 @@ object Root : ComponentBase<Props>() {
   )
 
   override fun ChildrenBuilder.component(props: Props) {
-
-
     ReactHTML.div {
       ThemeProvider.fc {
-        RouterProvider {
-          router = this@Root.router
+        ReactHTML.div {
+          RouterProvider {
+            router = this@Root.router
+          }
         }
       }
     }

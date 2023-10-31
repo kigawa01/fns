@@ -4,10 +4,10 @@ import emotion.react.Global
 import emotion.react.css
 import emotion.react.styles
 import js.promise.Promise
+import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.share.json.ThemeJson
 import react.*
 import react.dom.html.ReactHTML.div
-import net.kigawa.fns.frontend.util.ComponentBase
 import web.cssom.Color
 import web.cssom.Globals.Companion.unset
 import web.cssom.Selector
@@ -15,7 +15,8 @@ import web.cssom.px
 import web.cssom.string
 import web.fonts.FontFace
 
-object ThemeProvider : ComponentBase<ProviderProps<ThemeJson>>() {
+external interface ThemeProps : PropsWithChildren, PropsWithClassName
+object ThemeProvider : ComponentBase<ThemeProps>() {
 
   private val ThemeContext: Context<ThemeJson> = createContext(ThemeJson())
   private var themeSetter: StateSetter<ThemeJson>? = null
@@ -66,7 +67,7 @@ object ThemeProvider : ComponentBase<ProviderProps<ThemeJson>>() {
     }
   }
 
-  override fun ChildrenBuilder.component(props: ProviderProps<ThemeJson>) {
+  override fun ChildrenBuilder.component(props: ThemeProps) {
     val (theme, setTheme) = useState(ThemeJson())
     val (font, setFont) = useState("")
     themeSetter = setTheme
@@ -77,6 +78,7 @@ object ThemeProvider : ComponentBase<ProviderProps<ThemeJson>>() {
     ThemeContext.Provider {
       value = theme
       div {
+        className = props.className
         css {
           color = Color(theme.textBase)
           backgroundColor = Color(theme.base)
