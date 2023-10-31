@@ -13,14 +13,20 @@ object PageBase : ComponentBase<PropsWithChildren>() {
     ReactHTML.div {
       css {
         height = 100.vh
-        display = Display.flex
         flexDirection = FlexDirection.column
       }
-      Header.fc {}
+      Header.fc {
+        css {
+          top = 0.px
+          left = 0.px
+          position = Position.fixed
+        }
+      }
       ReactHTML.div {
         css {
-          flex = Auto.auto
-          overflow = Overflow.scroll
+          height = 100.vh
+          boxSizing = BoxSizing.borderBox
+          paddingTop = 45.px
         }
         +props.children
       }

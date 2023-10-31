@@ -8,25 +8,27 @@ import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.share.Config
 import react.ChildrenBuilder
-import react.Props
+import react.PropsWithClassName
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.header
 import react.router.dom.Link
 import web.cssom.*
 
-object Header : ComponentBase<Props>() {
-  override fun ChildrenBuilder.component(props: Props) {
+object Header : ComponentBase<PropsWithClassName>() {
+  override fun ChildrenBuilder.component(props: PropsWithClassName) {
     val theme = ThemeProvider.use()
     val user = UserManager.use()
 
     header {
-      css {
+      css(props.className) {
         backgroundColor = Color(theme.main)
         paddingLeft = 30.px
         paddingRight = 30.px
         paddingTop = 5.px
         paddingBottom = 6.px
+        boxSizing = BoxSizing.borderBox
+        width = 100.pct
         color = Color(theme.textAccent)
         display = Display.flex
         justifyContent = JustifyContent.spaceBetween
