@@ -4,10 +4,11 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import net.kigawa.fns.backend.auth.entity.TokenResult
 import net.kigawa.fns.backend.auth.entity.TokenType
 import net.kigawa.fns.backend.table.User
-import net.kigawa.fns.backend.util.KutilKtor
+import net.kigawa.fns.backend.util.ErrorIDException
+import net.kigawa.fns.backend.util.principalTokenResult
+import net.kigawa.fns.backend.util.receiveOrThrow
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
@@ -17,7 +18,6 @@ import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
-import java.lang.RuntimeException
 
 @Kunit
 class AuthRoute(
@@ -34,17 +34,23 @@ class AuthRoute(
   }
 
   private fun Route.postRefresh() = post("/refresh") {
-    val token = call.principal<TokenResult>()?.getOrThrow()?:throw RuntimeException()
-    call.respond("aaa")
+    val token = call.principalTokenResult().getRefresh()
+
+    call.respond(
+      Tokens(
+        tokenManager.createToken(token.userid, TokenType.ACCESS),
+        tokenManager.createToken(token.userid, TokenType.REFRESH),
+      )
+    )
   }
 
   private fun Route.postRegister() = post("/register") {
-    val userInfo = KutilKtor.tryReceive<UserInfo>(call) ?: return@post
+    val userInfo = call.receiveOrThrow<UserInfo>()
 
-    if (userInfo.password == "") return@post KutilKtor.respondErr(call, ErrID.PasswordIsEmpty)
+    if (userInfo.password == "") throw ErrorIDException(ErrID.PasswordIsEmpty)
 
     if (transaction { User.select { User.name eq userInfo.username }.count() } != 0L)
-      return@post KutilKtor.respondErr(call, ErrID.UserAlreadyExists)
+      throw ErrorIDException(ErrID.UserAlreadyExists)
 
     val id = transaction {
       User.insertAndGetId {
@@ -52,7 +58,8 @@ class AuthRoute(
         it[password] = BCrypt.hashpw(userInfo.password, BCrypt.gensalt())
       }
     }.value
-    return@post call.respond(
+
+    call.respond(
       Tokens(
         tokenManager.createToken(id, TokenType.ACCESS),
         tokenManager.createToken(id, TokenType.REFRESH),
@@ -61,20 +68,20 @@ class AuthRoute(
   }
 
   private fun Route.postLogin() = post("/login") {
-    val loginInfo = KutilKtor.tryReceive<LoginInfo>(call) ?: return@post
+    val loginInfo = call.receiveOrThrow<LoginInfo>()
 
     val result = transaction {
       User
         .select { User.name eq loginInfo.username }
         .singleOrNull()
-    } ?: return@post KutilKtor.respondErr(call, ErrID.UserNotExits)
+    } ?: throw ErrorIDException(ErrID.UserNotExits)
 
     if (!BCrypt.checkpw(loginInfo.password, result[User.password]))
-      return@post KutilKtor.respondErr(call, ErrID.InvalidPassword)
+      throw ErrorIDException(ErrID.InvalidPassword)
 
 
     val id = result[User.id].value
-    return@post call.respond(
+    call.respond(
       Tokens(
         tokenManager.createToken(id, TokenType.ACCESS),
         tokenManager.createToken(id, TokenType.REFRESH),

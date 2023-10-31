@@ -17,5 +17,7 @@ enum class ErrID(val statusCode: HttpStatusCode) {
   BadRequest(HttpStatusCode.BadRequest),
   UsernameIsEmpty(HttpStatusCode.BadRequest),
   PasswordIsEmpty(HttpStatusCode.BadRequest),
+  InvalidBody(HttpStatusCode.BadRequest),
+
   UserAlreadyExists(HttpStatusCode.Conflict),
 }

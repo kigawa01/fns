@@ -13,6 +13,7 @@ import net.kigawa.fns.backend.service.DatabaseManager
 import net.kigawa.fns.backend.service.Routing
 import net.kigawa.fns.backend.util.ErrorIDException
 import net.kigawa.fns.backend.util.KutilKtor
+import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.user.UserInfo
@@ -57,14 +58,14 @@ class Modules(
     exception<RequestValidationException> { call, cause ->
       try {
         cause.reasons.firstOrNull()
-          ?.let { KutilKtor.respondErr(call, ErrID.valueOf(it)) }
+          ?.let { call.respondErr(ErrID.valueOf(it)) }
           ?: call.respondInternalErr(cause)
       } catch (e: IllegalArgumentException) {
         call.respondInternalErr(cause)
       }
     }
     exception<ErrorIDException> { call, cause ->
-      KutilKtor.respondErr(call, cause.errID, cause.message)
+      call.respondErr(cause.errID, cause.message)
     }
     exception<Throwable> { call, cause ->
       call.respondInternalErr(cause)

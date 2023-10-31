@@ -10,7 +10,7 @@ import net.kigawa.fns.backend.auth.entity.Token
 import net.kigawa.fns.backend.auth.entity.TokenResult
 import net.kigawa.fns.backend.auth.entity.TokenType
 import net.kigawa.fns.backend.util.ErrorIDException
-import net.kigawa.fns.backend.util.KutilKtor
+import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.util.KutilResult
 import net.kigawa.kutil.unitapi.annotation.ArgName
@@ -55,7 +55,7 @@ class TokenManager(
           }.let { TokenResult(it) }
         }
         challenge { _, _ ->
-          KutilKtor.respondErr(call, ErrID.InvalidToken)
+          call.respondErr(ErrID.InvalidToken)
         }
 
       }
