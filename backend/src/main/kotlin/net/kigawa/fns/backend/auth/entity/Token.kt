@@ -1,11 +1,11 @@
-package net.kigawa.fns.backend.auth
+package net.kigawa.fns.backend.auth.entity
 
 import io.ktor.server.auth.*
 
 
-data class TokenPrincipal(
+data class Token(
   val userid: Int,
-  val type: String,
+  val type: TokenType,
 ) : Principal {
   companion object {
     const val ID_NAME = "userid"

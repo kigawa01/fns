@@ -6,6 +6,13 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.config.*
+import net.kigawa.fns.backend.auth.entity.Token
+import net.kigawa.fns.backend.auth.entity.TokenResult
+import net.kigawa.fns.backend.auth.entity.TokenType
+import net.kigawa.fns.backend.util.ErrorIDException
+import net.kigawa.fns.backend.util.KutilKtor
+import net.kigawa.fns.share.ErrID
+import net.kigawa.fns.share.util.KutilResult
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
 import java.time.LocalDateTime
@@ -27,17 +34,30 @@ class TokenManager(
         verifier(
           JWT
             .require(algorithm)
-            .withAudience()
+            .withAudience(audience.getString())
             .withIssuer(issuer.getString())
             .build()
         )
         validate { credential ->
-          val id = credential.payload.getClaim(TokenPrincipal.ID_NAME)
-          if (id.isNull) return@validate null
-          val type = credential.payload.getClaim(TokenPrincipal.TYPE_NAME)
-          if (type.isNull) return@validate null
-          return@validate TokenPrincipal(id.asInt(), type.asString())
+          KutilResult.tryResult(ErrorIDException::class) {
+            val id = credential.payload.getClaim(Token.ID_NAME)
+            if (id.isNull) throw ErrorIDException(ErrID.NullTokenID)
+            val type = credential.payload.getClaim(Token.TYPE_NAME)
+            if (type.isNull) throw ErrorIDException(ErrID.NullTokenType)
+            val expiresDate = credential.expiresAt
+            if (expiresDate != null && LocalDateTime.now().toInstant(ZoneOffset.UTC).isAfter(expiresDate.toInstant()))
+              throw ErrorIDException(ErrID.ExpiresToken)
+            try {
+              return@tryResult Token(id.asInt(), TokenType.valueOf(type.asString()))
+            } catch (_: IllegalArgumentException) {
+              throw ErrorIDException(ErrID.UnknownTokenType)
+            }
+          }.let { TokenResult(it) }
         }
+        challenge { _, _ ->
+          KutilKtor.respondErr(call, ErrID.InvalidToken)
+        }
+
       }
 
     }
@@ -48,8 +68,8 @@ class TokenManager(
     return JWT.create()
       .withAudience(audience.getString())
       .withExpiresAt(Date.from(LocalDateTime.now().plusHours(type.expireHour).toInstant(ZoneOffset.UTC)))
-      .withClaim(TokenPrincipal.ID_NAME, id)
-      .withClaim(TokenPrincipal.TYPE_NAME, type.name)
+      .withClaim(Token.ID_NAME, id)
+      .withClaim(Token.TYPE_NAME, type.name)
       .withIssuer(issuer.getString())
       .sign(algorithm)
   }

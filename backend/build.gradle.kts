@@ -32,6 +32,10 @@ fun DependencyHandler.ktorLib(id: String, version: String = Depends.KtorLib.vers
 
 dependencies {
   implementation(project(":share"))
+  implementation("io.ktor:ktor-server-auto-head-response-jvm:2.3.3")
+  implementation("io.ktor:ktor-server-core-jvm:2.3.3")
+  implementation("io.ktor:ktor-server-host-common-jvm:2.3.3")
+  implementation("io.ktor:ktor-server-status-pages-jvm:2.3.3")
   ktor("ktor-server-auth-jvm")
   ktor("ktor-server-core-jvm")
   ktor("ktor-server-auth-jwt-jvm")
@@ -43,6 +47,7 @@ dependencies {
   ktorLib("ktor-auth")
   ktorLib("ktor-auth-jwt")
   ktorLib("ktor-jackson")
+  implementation(Depends.Ktor.strId("ktor-server-request-validation"))
   implementation(Depends.Ktor.serializationKotlinxJson)
   implementation(Depends.Exposed.strId("exposed-core"))
   implementation(Depends.Exposed.strId("exposed-dao"))

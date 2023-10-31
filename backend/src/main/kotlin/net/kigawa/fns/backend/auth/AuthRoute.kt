@@ -1,8 +1,11 @@
 package net.kigawa.fns.backend.auth
 
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import net.kigawa.fns.backend.auth.entity.TokenResult
+import net.kigawa.fns.backend.auth.entity.TokenType
 import net.kigawa.fns.backend.table.User
 import net.kigawa.fns.backend.util.KutilKtor
 import net.kigawa.fns.share.ErrID
@@ -14,6 +17,7 @@ import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
+import java.lang.RuntimeException
 
 @Kunit
 class AuthRoute(
@@ -23,13 +27,20 @@ class AuthRoute(
     route.route("/auth") {
       postLogin()
       postRegister()
+      authenticate {
+        postRefresh()
+      }
     }
+  }
+
+  private fun Route.postRefresh() = post("/refresh") {
+    val token = call.principal<TokenResult>()?.getOrThrow()?:throw RuntimeException()
+    call.respond("aaa")
   }
 
   private fun Route.postRegister() = post("/register") {
     val userInfo = KutilKtor.tryReceive<UserInfo>(call) ?: return@post
 
-    if (userInfo.username == "") return@post KutilKtor.respondErr(call, ErrID.UsernameIsEmpty)
     if (userInfo.password == "") return@post KutilKtor.respondErr(call, ErrID.PasswordIsEmpty)
 
     if (transaction { User.select { User.name eq userInfo.username }.count() } != 0L)
@@ -51,10 +62,6 @@ class AuthRoute(
 
   private fun Route.postLogin() = post("/login") {
     val loginInfo = KutilKtor.tryReceive<LoginInfo>(call) ?: return@post
-
-    if (loginInfo.username == "") return@post KutilKtor.respondErr(call, ErrID.UsernameIsEmpty)
-    if (loginInfo.password == "") return@post KutilKtor.respondErr(call, ErrID.PasswordIsEmpty)
-
 
     val result = transaction {
       User

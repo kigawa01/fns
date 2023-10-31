@@ -1,4 +1,4 @@
-package net.kigawa.fns.backend.auth
+package net.kigawa.fns.backend.auth.entity
 
 enum class TokenType( val expireHour: Long) {
   ACCESS(1),
