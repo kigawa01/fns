@@ -7,12 +7,10 @@ import js.promise.Promise
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.share.json.ThemeJson
 import react.*
+import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
-import web.cssom.Color
+import web.cssom.*
 import web.cssom.Globals.Companion.unset
-import web.cssom.Selector
-import web.cssom.px
-import web.cssom.string
 import web.fonts.FontFace
 
 external interface ThemeProps : PropsWithChildren, PropsWithClassName
@@ -40,27 +38,27 @@ object ThemeProvider : ComponentBase<ThemeProps>() {
   private fun ChildrenBuilder.globalTheme(font: String) {
     Global {
       styles {
+        ReactHTML.body {
+          fontFamily = string(font)
+        }
         (Selector("*")) {
           margin = 0.px
           padding = 0.px
           border = 0.px
         }
 
-        (Selector("a")) {
+        ReactHTML.a {
           color = unset
           textDecoration = unset
         }
 
-        (Selector("button")) {
+        ReactHTML.button {
           backgroundColor = unset
           fontFamily = string(font)
+          cursor = Cursor.pointer
         }
 
-        (Selector("p")) {
-          fontFamily = string(font)
-        }
-
-        (Selector("h2")) {
+        ReactHTML.h2 {
           fontFamily = string(font)
         }
       }

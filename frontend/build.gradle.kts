@@ -21,6 +21,10 @@ dependencies {
   implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinWrapperReactVersion")
   implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$kotlinWrapperReactRouterVersion")
   implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinWrapperEmotionVersion")
+  // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+  implementation(Depends.Ktor.serializationKotlinxJson)
+
 
   implementation(npm("postcss", "8.2.6"))
   implementation(npm("postcss-loader", "4.2.0"))

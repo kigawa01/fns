@@ -5,11 +5,13 @@ import net.kigawa.fns.frontend.component.header.Header
 import net.kigawa.fns.frontend.util.ComponentBase
 import react.ChildrenBuilder
 import react.PropsWithChildren
+import react.PropsWithClassName
 import react.dom.html.ReactHTML
 import web.cssom.*
 
-object PageBase : ComponentBase<PropsWithChildren>() {
-  override fun ChildrenBuilder.component(props: PropsWithChildren) {
+external interface PageBaseProps : PropsWithChildren, PropsWithClassName
+object PageBase : ComponentBase<PageBaseProps>() {
+  override fun ChildrenBuilder.component(props: PageBaseProps) {
     ReactHTML.div {
       css {
         height = 100.vh
@@ -23,7 +25,7 @@ object PageBase : ComponentBase<PropsWithChildren>() {
         }
       }
       ReactHTML.div {
-        css {
+        css(props.className) {
           height = 100.vh
           boxSizing = BoxSizing.borderBox
           paddingTop = 45.px

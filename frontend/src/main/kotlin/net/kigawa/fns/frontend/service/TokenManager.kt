@@ -1,8 +1,21 @@
 package net.kigawa.fns.frontend.service
 
-import net.kigawa.fns.frontend.util.hook.GlobalState
+import net.kigawa.fns.share.json.auth.LoginInfo
+import net.kigawa.fns.share.json.auth.Tokens
 
 object TokenManager {
-  private val refreshTokenSate = GlobalState(LocalStorageManager.getRefreshToken())
-  private val accessTokenSate = GlobalState(null)
+  private var refreshToken: String? = LocalStorageManager.getRefreshToken()
+  private var accessToken: String? = null
+
+  suspend fun login(username: String, password: String): Result<Tokens> {
+    val result = ApiClient.login(LoginInfo(username, password))
+
+    val tokens = result.getOrNull()
+    if (tokens != null) {
+      refreshToken = tokens.refresh
+      accessToken = tokens.access
+    }
+
+    return result
+  }
 }
