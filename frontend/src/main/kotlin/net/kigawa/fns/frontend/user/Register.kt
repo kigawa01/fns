@@ -23,6 +23,7 @@ object Register : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
     val (name, setName) = useState("")
     val (pass, setPass) = useState("")
+    val (email, setEmail) = useState("")
     val (err, setErr) = useState<String>()
     val (redirect, setRedirect) = useState<String>()
 
@@ -66,6 +67,14 @@ object Register : ComponentBase<Props>() {
           onChange = { setPass(it.currentTarget.value) }
           value = pass
         }
+        ReactHTML.h3 {
+          +"メールアドレス"
+        }
+        ReactHTML.input {
+          type = InputType.email
+          onChange = { setEmail(it.currentTarget.value) }
+          value = email
+        }
         ReactHTML.div {
           ReactHTML.button {
             +"登録"
@@ -75,7 +84,7 @@ object Register : ComponentBase<Props>() {
               button.disabled = true
               console.info("on click")
               CoroutineScope(Dispatchers.Default).launch {
-                val result = UserManager.register(name, pass)
+                val result = UserManager.register(name, pass, email)
 
                 val exception = result.exceptionOrNull()
                 if (exception == null) {

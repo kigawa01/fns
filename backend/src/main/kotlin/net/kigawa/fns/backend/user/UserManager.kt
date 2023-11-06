@@ -35,12 +35,16 @@ class UserManager {
     if (userInfo.password == "") throw ErrorIDException(ErrID.PasswordIsEmpty)
 
     if (transaction { UserTable.select { UserTable.name eq userInfo.username }.count() } != 0L) throw ErrorIDException(
-      ErrID.UserAlreadyExists
+      ErrID.UserNameDuplicate
+    )
+    if (transaction { UserTable.select { UserTable.email eq userInfo.email }.count() } != 0L) throw ErrorIDException(
+      ErrID.UserEmailDuplicate
     )
 
     return transaction {
       UserTable.insertAndGetId {
         it[name] = userInfo.username
+        it[email] = userInfo.email
         it[password] = BCrypt.hashpw(userInfo.password, BCrypt.gensalt())
       }
     }.value

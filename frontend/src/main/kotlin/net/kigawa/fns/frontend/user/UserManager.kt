@@ -8,7 +8,6 @@ import net.kigawa.fns.frontend.service.TokenManager
 import net.kigawa.fns.frontend.util.hook.GlobalState
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.ErrorIDException
-import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
 import net.kigawa.fns.share.json.user.UserInfo
 
@@ -28,8 +27,8 @@ object UserManager {
     }
   }
 
-  suspend fun register(username: String, password: String): Result<Tokens> {
-    val result = ApiClient.register(LoginInfo(username, password))
+  suspend fun register(username: String, password: String, email: String): Result<Tokens> {
+    val result = ApiClient.register(UserInfo(username, password, email))
 
     val tokens = result.getOrNull() ?: return result
 

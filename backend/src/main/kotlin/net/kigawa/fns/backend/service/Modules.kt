@@ -47,6 +47,7 @@ class Modules(
     }
     validate<UserInfo> {
       if (it.username == "") return@validate KutilKtor.validationErrIdResult(ErrID.UsernameIsEmpty)
+      if (it.email == "") return@validate KutilKtor.validationErrIdResult(ErrID.UserEmailIsEmpty)
 
       return@validate ValidationResult.Valid
     }

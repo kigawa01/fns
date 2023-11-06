@@ -22,9 +22,9 @@ object ApiClient {
     method = HttpMethod.POST,
   )
 
-  suspend fun register(loginInfo: LoginInfo): Result<Tokens> = fetchJson(
+  suspend fun register(userInfo: UserInfo): Result<Tokens> = fetchJson(
     "/api/user/register",
-    body = loginInfo,
+    body = userInfo,
     method = HttpMethod.POST,
   )
 
