@@ -7,7 +7,7 @@ ktor:
     port: 8080
   application:
     modules:
-      - net.kigawa.fns.backend.ModulesKt.loadModule
+      - net.kigawa.fns.backend.service.ModulesKt.loadModule
 
 jwt:
   secret: ""

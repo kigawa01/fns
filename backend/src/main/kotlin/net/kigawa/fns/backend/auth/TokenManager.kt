@@ -9,9 +9,9 @@ import io.ktor.server.config.*
 import net.kigawa.fns.backend.auth.entity.Token
 import net.kigawa.fns.backend.auth.entity.TokenResult
 import net.kigawa.fns.backend.auth.entity.TokenType
-import net.kigawa.fns.backend.util.ErrorIDException
 import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
+import net.kigawa.fns.share.ErrorIDException
 import net.kigawa.fns.share.util.KutilResult
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit

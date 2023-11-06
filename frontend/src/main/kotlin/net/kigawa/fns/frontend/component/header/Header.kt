@@ -3,6 +3,7 @@ package net.kigawa.fns.frontend.component.header
 import emotion.react.css
 import net.kigawa.fns.frontend.RouteList
 import net.kigawa.fns.frontend.component.Icon
+import net.kigawa.fns.frontend.service.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.share.Config
@@ -17,6 +18,7 @@ import web.cssom.*
 
 object Header : ComponentBase<PropsWithClassName>() {
   override fun ChildrenBuilder.component(props: PropsWithClassName) {
+    val userInfo = UserManager.useUser()
     header {
       style(props)
 
@@ -35,16 +37,19 @@ object Header : ComponentBase<PropsWithClassName>() {
           paddingBottom = 5.px
         }
 
-        if (true) {
-          Link {
-            css {
-              fontSize = 1.4.rem
-            }
+        div {
+          css {
+            fontSize = 1.4.rem
+          }
+          userInfo?.let {
+            +userInfo.username
+          } ?: Link {
 
             to = RouteList.LOGIN.strPath
             +"Login"
           }
         }
+
       }
 
     }

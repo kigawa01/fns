@@ -2,14 +2,16 @@ package net.kigawa.fns.backend.user
 
 import net.kigawa.fns.backend.table.UserTable
 import net.kigawa.fns.backend.user.entity.UserAuth
-import net.kigawa.fns.backend.util.ErrorIDException
 import net.kigawa.fns.share.ErrID
+import net.kigawa.fns.share.ErrorIDException
 import net.kigawa.fns.share.json.user.UserInfo
+import net.kigawa.kutil.unitapi.annotation.Kunit
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
 
+@Kunit
 class UserManager {
   fun userInfo(userId: Int): UserInfo {
     val result = transaction {
@@ -32,8 +34,9 @@ class UserManager {
   fun register(userInfo: UserInfo): Int {
     if (userInfo.password == "") throw ErrorIDException(ErrID.PasswordIsEmpty)
 
-    if (transaction { UserTable.select { UserTable.name eq userInfo.username }.count() } != 0L)
-      throw ErrorIDException(ErrID.UserAlreadyExists)
+    if (transaction { UserTable.select { UserTable.name eq userInfo.username }.count() } != 0L) throw ErrorIDException(
+      ErrID.UserAlreadyExists
+    )
 
     return transaction {
       UserTable.insertAndGetId {

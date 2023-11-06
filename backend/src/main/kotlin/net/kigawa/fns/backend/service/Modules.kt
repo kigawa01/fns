@@ -10,10 +10,10 @@ import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import net.kigawa.fns.backend.FnsApplication
 import net.kigawa.fns.backend.auth.TokenManager
-import net.kigawa.fns.backend.util.ErrorIDException
 import net.kigawa.fns.backend.util.KutilKtor
 import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
+import net.kigawa.fns.share.ErrorIDException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.user.UserInfo
 import net.kigawa.kutil.unitapi.annotation.Kunit
