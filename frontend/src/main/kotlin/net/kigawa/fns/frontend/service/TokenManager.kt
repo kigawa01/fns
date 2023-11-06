@@ -16,6 +16,12 @@ object TokenManager {
     return refreshToken != null
   }
 
+  suspend fun setToken(tokens: Tokens) {
+    refreshToken = tokens.refresh
+    accessToken = tokens.access
+    UserManager.refresh()
+  }
+
   suspend fun refresh(): Result<Tokens> {
     val result = refreshToken?.let { ApiClient.refresh(it) }
       ?: return Result.failure(ErrorIDException(ErrID.NoLogin))
@@ -32,10 +38,7 @@ object TokenManager {
 
     val tokens = result.getOrNull() ?: return result
 
-    refreshToken = tokens.refresh
-    accessToken = tokens.access
-
-    UserManager.refresh()
+    setToken(tokens)
 
     return result
   }

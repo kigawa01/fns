@@ -22,6 +22,12 @@ object ApiClient {
     method = HttpMethod.POST,
   )
 
+  suspend fun register(loginInfo: LoginInfo): Result<Tokens> = fetchJson(
+    "/api/user/register",
+    body = loginInfo,
+    method = HttpMethod.POST,
+  )
+
   suspend fun refresh(refreshToken: String): Result<Tokens> = fetchJson(
     "/api/auth/refresh", token = refreshToken
   )

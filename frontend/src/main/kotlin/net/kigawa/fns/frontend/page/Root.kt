@@ -3,6 +3,7 @@ package net.kigawa.fns.frontend.page
 import js.core.jso
 import net.kigawa.fns.frontend.RouteList
 import net.kigawa.fns.frontend.user.Login
+import net.kigawa.fns.frontend.user.Register
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import react.ChildrenBuilder
@@ -18,6 +19,10 @@ object Root : ComponentBase<Props>() {
       jso {
         path = RouteList.LOGIN.strPath
         element = Login.fc.create()
+      },
+      jso {
+        path = RouteList.REGISTER.strPath
+        element = Register.fc.create()
       },
       jso {
         path = RouteList.TOP.strPath

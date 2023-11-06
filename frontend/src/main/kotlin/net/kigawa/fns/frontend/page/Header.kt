@@ -1,12 +1,14 @@
-package net.kigawa.fns.frontend.component
+package net.kigawa.fns.frontend.page
 
 import emotion.react.css
 import net.kigawa.fns.frontend.RouteList
+import net.kigawa.fns.frontend.component.Icon
 import net.kigawa.fns.frontend.user.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.share.Config
 import react.ChildrenBuilder
+import react.Fragment
 import react.PropsWithClassName
 import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
@@ -39,13 +41,21 @@ object Header : ComponentBase<PropsWithClassName>() {
         div {
           css {
             fontSize = 1.4.rem
+            ReactHTML.a {
+              marginLeft = 20.px
+            }
           }
           userInfo?.let {
             +userInfo.username
-          } ?: Link {
-
-            to = RouteList.LOGIN.strPath
-            +"Login"
+          } ?: Fragment {
+            Link {
+              to = RouteList.LOGIN.strPath
+              +"Login"
+            }
+            Link {
+              to = RouteList.REGISTER.strPath
+              +"Register"
+            }
           }
         }
 
