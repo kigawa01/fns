@@ -1,4 +1,4 @@
-package net.kigawa.fns.backend
+package net.kigawa.fns.backend.service
 
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -8,9 +8,8 @@ import io.ktor.server.plugins.requestvalidation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
+import net.kigawa.fns.backend.FnsApplication
 import net.kigawa.fns.backend.auth.TokenManager
-import net.kigawa.fns.backend.service.DatabaseManager
-import net.kigawa.fns.backend.service.Routing
 import net.kigawa.fns.backend.util.ErrorIDException
 import net.kigawa.fns.backend.util.KutilKtor
 import net.kigawa.fns.backend.util.respondErr

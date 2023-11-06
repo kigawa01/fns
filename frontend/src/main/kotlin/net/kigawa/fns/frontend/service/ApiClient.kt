@@ -4,7 +4,7 @@ import kotlinx.coroutines.await
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.kigawa.fns.frontend.util.HttpMethod
-import net.kigawa.fns.frontend.util.UrlUtil
+import net.kigawa.fns.frontend.util.KutilUrl
 import net.kigawa.fns.share.ErrResponseException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
@@ -16,7 +16,7 @@ import kotlin.js.json
 object ApiClient {
   suspend fun login(loginInfo: LoginInfo): Result<Tokens> {
     return fetchJson(
-      UrlUtil.createURL("/api/auth/login"),
+      KutilUrl.createURL("/api/auth/login"),
       body = loginInfo,
       method = HttpMethod.POST
     )

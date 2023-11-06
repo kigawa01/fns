@@ -14,7 +14,6 @@ object PageBase : ComponentBase<PageBaseProps>() {
   override fun ChildrenBuilder.component(props: PageBaseProps) {
     ReactHTML.div {
       css {
-        height = 100.vh
         flexDirection = FlexDirection.column
       }
       Header.fc {
@@ -26,9 +25,9 @@ object PageBase : ComponentBase<PageBaseProps>() {
       }
       ReactHTML.div {
         css(props.className) {
-          height = 100.vh
           boxSizing = BoxSizing.borderBox
           paddingTop = 45.px
+          minHeight = 100.vh
         }
         +props.children
       }

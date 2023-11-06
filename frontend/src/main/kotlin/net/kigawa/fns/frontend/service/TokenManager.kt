@@ -7,6 +7,10 @@ object TokenManager {
   private var refreshToken: String? = LocalStorageManager.getRefreshToken()
   private var accessToken: String? = null
 
+  fun isLogin(): Boolean {
+    return refreshToken != null
+  }
+
   suspend fun login(username: String, password: String): Result<Tokens> {
     val result = ApiClient.login(LoginInfo(username, password))
 

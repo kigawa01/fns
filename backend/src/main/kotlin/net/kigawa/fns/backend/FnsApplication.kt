@@ -2,6 +2,7 @@ package net.kigawa.fns.backend
 
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
+import net.kigawa.fns.backend.service.Modules
 import net.kigawa.fns.backend.util.ConfigFinder
 import net.kigawa.kutil.unitapi.component.UnitFinderComponent
 import net.kigawa.kutil.unitapi.component.container.UnitContainer

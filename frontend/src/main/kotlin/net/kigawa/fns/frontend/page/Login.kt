@@ -7,13 +7,11 @@ import kotlinx.coroutines.launch
 import net.kigawa.fns.frontend.RouteList
 import net.kigawa.fns.frontend.service.TokenManager
 import net.kigawa.fns.frontend.util.ComponentBase
-import net.kigawa.fns.frontend.util.UrlUtil
+import net.kigawa.fns.frontend.util.KutilUrl
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
-import react.ChildrenBuilder
-import react.Props
-import react.PropsWithClassName
+import react.*
 import react.dom.html.ReactHTML
-import react.useState
+import react.router.Navigate
 import web.cssom.NamedColor
 import web.cssom.pct
 import web.cssom.px
@@ -25,8 +23,19 @@ object Login : ComponentBase<Props>() {
     val (name, setName) = useState("")
     val (pass, setPass) = useState("")
     val (err, setErr) = useState<String>()
+    val (redirect, setRedirect) = useState<String>()
 
-    PageBase.fc {
+    useEffectOnce {
+      if (TokenManager.isLogin()) setRedirect(RouteList.TOP.strPath)
+    }
+
+    redirect?.let {
+      Navigate {
+        replace = true
+        to = KutilUrl.createURL(it).pathname
+      }
+    } ?: PageBase.fc {
+      css { paddingBottom = 0.1.px }
       ReactHTML.div {
         style()
         ReactHTML.h2 {
@@ -69,8 +78,8 @@ object Login : ComponentBase<Props>() {
 
                 val exception = result.exceptionOrNull()
                 if (exception == null) {
-                  val url = UrlUtil.createURL().searchParams["redirect"] ?: RouteList.TOP.strPath
-                  UrlUtil.redirect(url)
+                  val url = KutilUrl.createURL().searchParams["redirect"] ?: RouteList.TOP.strPath
+                  setRedirect(url)
                 } else {
                   setErr(exception.message ?: exception.toString())
                   button.disabled = false
