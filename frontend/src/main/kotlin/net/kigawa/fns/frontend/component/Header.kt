@@ -1,9 +1,8 @@
-package net.kigawa.fns.frontend.component.header
+package net.kigawa.fns.frontend.component
 
 import emotion.react.css
 import net.kigawa.fns.frontend.RouteList
-import net.kigawa.fns.frontend.component.Icon
-import net.kigawa.fns.frontend.service.UserManager
+import net.kigawa.fns.frontend.user.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.share.Config

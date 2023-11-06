@@ -1,5 +1,6 @@
 package net.kigawa.fns.frontend.service
 
+import net.kigawa.fns.frontend.user.UserManager
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.ErrorIDException
 import net.kigawa.fns.share.json.auth.LoginInfo

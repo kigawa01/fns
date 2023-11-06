@@ -1,8 +1,8 @@
-package net.kigawa.fns.frontend
+package net.kigawa.fns.frontend.page
 
 import js.core.jso
-import net.kigawa.fns.frontend.page.Login
-import net.kigawa.fns.frontend.page.Top
+import net.kigawa.fns.frontend.RouteList
+import net.kigawa.fns.frontend.user.Login
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import react.ChildrenBuilder
@@ -31,7 +31,7 @@ object Root : ComponentBase<Props>() {
       ThemeProvider.fc {
         ReactHTML.div {
           RouterProvider {
-            router = this@Root.router
+            router = Root.router
           }
         }
       }

@@ -1,7 +1,7 @@
 package net.kigawa.fns.frontend.page
 
 import emotion.react.css
-import net.kigawa.fns.frontend.component.header.Header
+import net.kigawa.fns.frontend.component.Header
 import net.kigawa.fns.frontend.util.ComponentBase
 import react.ChildrenBuilder
 import react.PropsWithChildren

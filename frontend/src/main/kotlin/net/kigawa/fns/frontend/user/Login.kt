@@ -1,10 +1,11 @@
-package net.kigawa.fns.frontend.page
+package net.kigawa.fns.frontend.user
 
 import emotion.react.css
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.kigawa.fns.frontend.RouteList
+import net.kigawa.fns.frontend.page.PageBase
 import net.kigawa.fns.frontend.service.TokenManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.KutilUrl
