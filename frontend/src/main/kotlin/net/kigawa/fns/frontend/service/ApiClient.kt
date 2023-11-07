@@ -29,7 +29,9 @@ object ApiClient {
   )
 
   suspend fun refresh(refreshToken: String): Result<Tokens> = fetchJson(
-    "/api/auth/refresh", token = refreshToken
+    "/api/auth/refresh",
+    token = refreshToken,
+    method = HttpMethod.POST,
   )
 
   suspend fun userInfo(): Result<UserInfo> = authedFetchJson(
