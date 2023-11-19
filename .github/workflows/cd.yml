@@ -1,0 +1,32 @@
+name: edit manifest
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: checkout manifest repository
+        uses: actions/checkout@v3
+        with:
+          repository: kigawa01/fns
+          ref: main
+          token: ${{ secrets.GIT_TOKEN }}
+
+      - name: edit manifest
+        run: |
+          yq -i '.spec.template.spec.initContainers[0].env[0].value = "${{ github.sha }}"' ./fns/fns.yml
+
+      - name: push
+        run: |
+          git config user.name githubActions
+          git config user.email bot@example.com
+          git add .
+          git commit --author=. -m "update rev"
+          git push
