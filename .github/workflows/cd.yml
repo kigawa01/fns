@@ -15,7 +15,7 @@ jobs:
       - name: checkout manifest repository
         uses: actions/checkout@v3
         with:
-          repository: kigawa01/fns
+          repository: kigawa01/k8s
           ref: main
           token: ${{ secrets.GIT_TOKEN }}
 
