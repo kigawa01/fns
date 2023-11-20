@@ -21,7 +21,7 @@ application {
   applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 fun DependencyHandler.ktor(
-  id: String, version: String = Depends.Ktor.version
+  id: String, version: String = Depends.Ktor.version,
 ): Dependency? {
   return implementation(Depends.Ktor.strId(id, version))
 }
@@ -61,7 +61,9 @@ dependencies {
   testImplementation("io.ktor:ktor-server-tests-jvm:2.3.5")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
-
+application {
+  mainClass.set("net.kigawa.fns.backend.FnsApplication")
+}
 tasks.withType<Test> {
   useJUnitPlatform()
 }
