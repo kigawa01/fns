@@ -2,6 +2,7 @@ package net.kigawa.fns.frontend.page
 
 import js.core.jso
 import net.kigawa.fns.frontend.RouteList
+import net.kigawa.fns.frontend.top.Top
 import net.kigawa.fns.frontend.user.Login
 import net.kigawa.fns.frontend.user.Register
 import net.kigawa.fns.frontend.util.ComponentBase
