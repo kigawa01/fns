@@ -33,7 +33,12 @@ object TokenManager {
 
   suspend fun refresh(): Result<Tokens> {
     val result = refreshToken?.let { ApiClient.refresh(it) } ?: return Result.failure(ErrorIDException(ErrID.NoLogin))
-    val tokens = result.getOrNull() ?: return result
+    val tokens = result.getOrNull()
+    if (tokens == null) {
+      refreshToken = null
+      accessToken = null
+      return result
+    }
 
     refreshToken = tokens.refresh
     accessToken = tokens.access

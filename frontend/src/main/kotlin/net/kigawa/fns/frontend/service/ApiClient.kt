@@ -85,7 +85,7 @@ object ApiClient {
     method: HttpMethod? = null,
     body: B? = null,
   ): Result<T> {
-    val first = TokenManager.accessToken?.let {
+    val firstResult = TokenManager.accessToken?.let {
       fetchJson<T, B>(
         url,
         method = method,
@@ -93,11 +93,11 @@ object ApiClient {
         token = it,
       )
     }
-    if (first?.isSuccess == true) return first
-    val err = first?.exceptionOrNull()
+    if (firstResult?.isSuccess == true) return firstResult
+    val err = firstResult?.exceptionOrNull()
     if (err != null) {
-      if (err !is ErrResponseException) return first
-      if (err.errID != ErrID.ExpiresToken) return first
+      if (err !is ErrResponseException) return firstResult
+      if (err.errID != ErrID.ExpiresToken) return firstResult
     }
     val second = TokenManager.refresh()
     val accessToken = second.getOrNull()?.access ?: return Result.failure(second.exceptionOrNull()!!)

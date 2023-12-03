@@ -13,7 +13,7 @@ import react.dom.html.ReactHTML
 import react.router.dom.RouterProvider
 
 
-object Root : ComponentBase<Props>() {
+object Route : ComponentBase<Props>() {
 
   override fun ChildrenBuilder.component(props: Props) {
     ReactHTML.div {
