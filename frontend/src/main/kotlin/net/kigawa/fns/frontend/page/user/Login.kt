@@ -1,11 +1,10 @@
-package net.kigawa.fns.frontend.user
+package net.kigawa.fns.frontend.page.user
 
 import emotion.react.css
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.kigawa.fns.frontend.RouteList
-import net.kigawa.fns.frontend.page.PageBase
+import net.kigawa.fns.frontend.component.PageBase
 import net.kigawa.fns.frontend.service.TokenManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.KutilUrl
@@ -19,16 +18,15 @@ import web.cssom.px
 import web.cssom.rem
 import web.html.InputType
 
-object Register : ComponentBase<Props>() {
+object Login : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
     val (name, setName) = useState("")
     val (pass, setPass) = useState("")
-    val (email, setEmail) = useState("")
     val (err, setErr) = useState<String>()
     val (redirect, setRedirect) = useState<String>()
 
     useEffectOnce {
-      if (TokenManager.isLogin()) setRedirect(RouteList.TOP.strPath)
+      if (TokenManager.isLogin()) setRedirect("/")
     }
 
     redirect?.let {
@@ -41,7 +39,7 @@ object Register : ComponentBase<Props>() {
       ReactHTML.div {
         style()
         ReactHTML.h2 {
-          +"ユーザー登録"
+          +"ログイン"
         }
         err?.let {
           ReactHTML.p {
@@ -67,28 +65,20 @@ object Register : ComponentBase<Props>() {
           onChange = { setPass(it.currentTarget.value) }
           value = pass
         }
-        ReactHTML.h3 {
-          +"メールアドレス"
-        }
-        ReactHTML.input {
-          type = InputType.email
-          onChange = { setEmail(it.currentTarget.value) }
-          value = email
-        }
         ReactHTML.div {
           ReactHTML.button {
-            +"登録"
+            +"ログイン"
             onClick = onClick@{
               setErr(null)
               val button = it.currentTarget
               button.disabled = true
               console.info("on click")
               CoroutineScope(Dispatchers.Default).launch {
-                val result = UserManager.register(name, pass, email)
+                val result = TokenManager.login(name, pass)
 
                 val exception = result.exceptionOrNull()
                 if (exception == null) {
-                  val url = KutilUrl.createURL().searchParams["redirect"] ?: RouteList.TOP.strPath
+                  val url = KutilUrl.createURL().searchParams["redirect"] ?: "/"
                   setRedirect(url)
                 } else {
                   setErr(exception.message ?: exception.toString())

@@ -1,4 +1,4 @@
-package net.kigawa.fns.frontend.user
+package net.kigawa.fns.frontend.page.user
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -17,10 +17,14 @@ val kotlinWrapperEmotionVersion = "$emotionVersion$kotlinWrappersPrefix"
 dependencies {
   implementation(project(":share"))
   implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
-  implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinWrapperReactVersion")
-  implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinWrapperReactVersion")
-  implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$kotlinWrapperReactRouterVersion")
-  implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinWrapperEmotionVersion")
+//  https://central.sonatype.com/artifact/org.jetbrains.kotlin-wrappers/kotlin-react
+  implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.655")
+//  https://central.sonatype.com/artifact/org.jetbrains.kotlin-wrappers/kotlin-react-dom
+  implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.655")
+//  https://central.sonatype.com/artifact/org.jetbrains.kotlin-wrappers/kotlin-react-router-dom
+  implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.20.1-pre.655")
+//  https://central.sonatype.com/artifact/org.jetbrains.kotlin-wrappers/kotlin-emotion
+  implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.11.1-pre.655")
   // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   implementation(Depends.Ktor.serializationKotlinxJson)

@@ -3,7 +3,7 @@ package net.kigawa.fns.frontend.service
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.kigawa.fns.frontend.user.UserManager
+import net.kigawa.fns.frontend.page.user.UserManager
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.ErrorIDException
 import net.kigawa.fns.share.json.auth.LoginInfo

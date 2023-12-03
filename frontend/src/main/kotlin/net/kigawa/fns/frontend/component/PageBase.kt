@@ -1,4 +1,4 @@
-package net.kigawa.fns.frontend.page
+package net.kigawa.fns.frontend.component
 
 import emotion.react.css
 import net.kigawa.fns.frontend.util.ComponentBase
@@ -6,7 +6,10 @@ import react.ChildrenBuilder
 import react.PropsWithChildren
 import react.PropsWithClassName
 import react.dom.html.ReactHTML
-import web.cssom.*
+import web.cssom.BoxSizing
+import web.cssom.FlexDirection
+import web.cssom.px
+import web.cssom.vh
 
 external interface PageBaseProps : PropsWithChildren, PropsWithClassName
 object PageBase : ComponentBase<PageBaseProps>() {
@@ -14,13 +17,6 @@ object PageBase : ComponentBase<PageBaseProps>() {
     ReactHTML.div {
       css {
         flexDirection = FlexDirection.column
-      }
-      Header.fc {
-        css {
-          top = 0.px
-          left = 0.px
-          position = Position.fixed
-        }
       }
       ReactHTML.div {
         css(props.className) {

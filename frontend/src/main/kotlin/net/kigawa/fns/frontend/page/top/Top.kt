@@ -1,9 +1,9 @@
-package net.kigawa.fns.frontend.top
+package net.kigawa.fns.frontend.page.top
 
 import emotion.react.css
-import net.kigawa.fns.frontend.page.PageBase
 import net.kigawa.fns.frontend.util.ComponentBase
 import react.ChildrenBuilder
+import react.Fragment
 import react.Props
 import react.dom.html.ReactHTML
 import web.cssom.Color
@@ -12,7 +12,8 @@ import web.cssom.px
 
 object Top : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
-    PageBase.fc {
+
+    Fragment {
       ReactHTML.div {
         css {
           width = 100.pct
@@ -69,8 +70,8 @@ object Top : ComponentBase<Props>() {
           }
         }
 
-      }
 
+      }
     }
   }
 }

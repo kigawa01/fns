@@ -1,9 +1,7 @@
-package net.kigawa.fns.frontend.page
+package net.kigawa.fns.frontend.component
 
 import emotion.react.css
-import net.kigawa.fns.frontend.RouteList
-import net.kigawa.fns.frontend.component.Icon
-import net.kigawa.fns.frontend.user.UserManager
+import net.kigawa.fns.frontend.page.user.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.share.Config
@@ -14,53 +12,57 @@ import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.header
+import react.router.Outlet
 import react.router.dom.Link
 import web.cssom.*
 
 object Header : ComponentBase<PropsWithClassName>() {
   override fun ChildrenBuilder.component(props: PropsWithClassName) {
     val userInfo = UserManager.useUser()
-    header {
-      style(props)
+    Fragment {
+      header {
+        style(props)
 
-      Link {
-        to = RouteList.TOP.strPath
-        Icon.fc {
-          height = 35.px
-        }
-        h1 {
-          +Config.PROJECT_NAME
-        }
-      }
-
-      div {
-        css {
-          paddingBottom = 5.px
+        Link {
+          to = "/"
+          Icon.fc {
+            height = 35.px
+          }
+          h1 {
+            +Config.PROJECT_NAME
+          }
         }
 
         div {
           css {
-            fontSize = 1.4.rem
-            ReactHTML.a {
-              marginLeft = 20.px
+            paddingBottom = 5.px
+          }
+
+          div {
+            css {
+              fontSize = 1.4.rem
+              ReactHTML.a {
+                marginLeft = 20.px
+              }
+            }
+            userInfo?.let {
+              +userInfo.username
+            } ?: Fragment {
+              Link {
+                to = "/login"
+                +"Login"
+              }
+              Link {
+                to = "register"
+                +"Register"
+              }
             }
           }
-          userInfo?.let {
-            +userInfo.username
-          } ?: Fragment {
-            Link {
-              to = RouteList.LOGIN.strPath
-              +"Login"
-            }
-            Link {
-              to = RouteList.REGISTER.strPath
-              +"Register"
-            }
-          }
+
         }
 
       }
-
+      Outlet {}
     }
   }
 
