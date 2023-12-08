@@ -8,6 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/fns.frontend.test.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/fns.frontend.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/net.kigawa.fns.frontend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/net.kigawa.fns.frontend.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/net.kigawa.fns.frontend.test.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/net.kigawa.fns.frontend.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/project.dev.fns.frontend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/project.dev.fns.frontend.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/project.dev.fns.frontend.test.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/project.dev.fns.frontend.test.iml" />
     </modules>
   </component>
 </project>

@@ -39,7 +39,7 @@ object ApiClient {
     method = HttpMethod.GET,
   )
 
-  private suspend inline fun <reified T : Any?> authedFetchJson(
+  suspend inline fun <reified T : Any?> authedFetchJson(
     url: String,
     method: HttpMethod? = null,
   ) = authedFetchJson<T, Any?>(
@@ -56,7 +56,7 @@ object ApiClient {
     token = token,
   )
 
-  private suspend inline fun <reified T : Any?, reified B : Any?> fetchJson(
+  suspend inline fun <reified T : Any?, reified B : Any?> fetchJson(
     url: String,
     method: HttpMethod? = null,
     token: String? = null,
@@ -80,7 +80,7 @@ object ApiClient {
     body = null
   )
 
-  private suspend inline fun <reified T : Any?, reified B : Any?> authedFetchJson(
+  suspend inline fun <reified T : Any?, reified B : Any?> authedFetchJson(
     url: String,
     method: HttpMethod? = null,
     body: B? = null,
@@ -110,7 +110,7 @@ object ApiClient {
     )
   }
 
-  private suspend inline fun <reified T : Any?, reified B : Any?> fetchJson(
+  suspend inline fun <reified T : Any?, reified B : Any?> fetchJson(
     url: URL,
     method: HttpMethod? = null,
     searchParams: URLSearchParams? = null,

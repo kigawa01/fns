@@ -61,6 +61,9 @@ object ThemeProvider : ComponentBase<ThemeProps>() {
         ReactHTML.h2 {
           fontFamily = string(font)
         }
+        ReactHTML.li {
+          listStyle = None.none
+        }
       }
     }
   }

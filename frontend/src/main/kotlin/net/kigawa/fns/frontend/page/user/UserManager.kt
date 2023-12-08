@@ -1,10 +1,9 @@
 package net.kigawa.fns.frontend.page.user
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
 import net.kigawa.fns.frontend.service.ApiClient
 import net.kigawa.fns.frontend.service.TokenManager
+import net.kigawa.fns.frontend.util.concurrent.Coroutines
 import net.kigawa.fns.frontend.util.hook.GlobalState
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.ErrorIDException
@@ -13,17 +12,20 @@ import net.kigawa.fns.share.json.user.UserInfo
 
 object UserManager {
   private val userState = GlobalState<UserInfo?>(null)
+  var isReady = MutableStateFlow(false)
+    private set
 
   init {
-    CoroutineScope(Dispatchers.Default).launch {
+    Coroutines.launchIo {
       try {
         refresh().getOrThrow()
       } catch (e: ErrorIDException) {
-        if (e.errID == ErrID.NoLogin) return@launch
+        if (e.errID == ErrID.NoLogin) return@launchIo
         e.printStackTrace()
       } catch (e: Exception) {
         e.printStackTrace()
       }
+      isReady.value = true
     }
   }
 
