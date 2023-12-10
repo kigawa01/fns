@@ -9,7 +9,7 @@ import net.kigawa.fns.backend.user.UserManager
 import net.kigawa.fns.backend.util.principalTokenResult
 import net.kigawa.fns.backend.util.receiveOrThrow
 import net.kigawa.fns.share.ErrID
-import net.kigawa.fns.share.ErrorIDException
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
 import net.kigawa.kutil.unitapi.annotation.Kunit
@@ -45,7 +45,7 @@ class AuthRoute(
     val loginInfo = call.receiveOrThrow<LoginInfo>()
     val userAuth = userManager.userAuth(loginInfo.username)
     if (!BCrypt.checkpw(loginInfo.password, userAuth.hashedPassword))
-      throw ErrorIDException(ErrID.InvalidPassword)
+      throw ErrIDException(ErrID.InvalidPassword)
 
 
     call.respond(

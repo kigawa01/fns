@@ -23,6 +23,5 @@ repositories {
     url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
   }
 }
-
 version = ProjectConfig.VERSION
 group = ProjectConfig.GROUP

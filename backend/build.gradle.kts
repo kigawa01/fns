@@ -2,7 +2,7 @@ plugins {
   id("net.kigawa.fns.java-conventions")
   kotlin("jvm")
   id("io.ktor.plugin") version "2.3.3"
-  kotlin("plugin.serialization") version "1.9.20-RC"
+  kotlin("plugin.serialization") version "1.9.21"
 }
 
 val kotlinVersion = project.property("kotlin.version") as String
@@ -57,6 +57,9 @@ dependencies {
   implementation("org.mindrot:jbcrypt:0.4")
   implementation("com.mysql:mysql-connector-j:8.1.0")
   implementation("net.kigawa.kutil:kutil-unit:4.4.0")
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-imaging
+  implementation("org.apache.commons:commons-imaging:1.0-alpha3")
+
 
   testImplementation("io.ktor:ktor-server-tests-jvm:2.3.5")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")

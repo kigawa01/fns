@@ -13,7 +13,7 @@ import net.kigawa.fns.backend.auth.TokenManager
 import net.kigawa.fns.backend.util.KutilKtor
 import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
-import net.kigawa.fns.share.ErrorIDException
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.user.UserInfo
 import net.kigawa.kutil.unitapi.annotation.Kunit
@@ -47,7 +47,7 @@ class Modules(
     }
     validate<UserInfo> {
       if (it.username == "") return@validate KutilKtor.validationErrIdResult(ErrID.UsernameIsEmpty)
-      if (it.email == "") return@validate KutilKtor.validationErrIdResult(ErrID.UserEmailIsEmpty)
+      if (it.email == "") return@validate KutilKtor.validationErrIdResult(ErrID.PostTitleIsEmpty)
 
       return@validate ValidationResult.Valid
     }
@@ -64,7 +64,7 @@ class Modules(
         call.respondInternalErr(cause)
       }
     }
-    exception<ErrorIDException> { call, cause ->
+    exception<ErrIDException> { call, cause ->
       call.respondErr(cause.errID, cause.message)
     }
     exception<Throwable> { call, cause ->

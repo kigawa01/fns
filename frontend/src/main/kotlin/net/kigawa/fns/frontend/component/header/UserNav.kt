@@ -1,7 +1,7 @@
 package net.kigawa.fns.frontend.component.header
 
 import emotion.react.css
-import net.kigawa.fns.frontend.page.user.UserManager
+import net.kigawa.fns.frontend.component.user.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import react.ChildrenBuilder
 import react.Fragment

@@ -3,9 +3,9 @@ package net.kigawa.fns.frontend.service
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.kigawa.fns.frontend.page.user.UserManager
+import net.kigawa.fns.frontend.component.user.UserManager
 import net.kigawa.fns.share.ErrID
-import net.kigawa.fns.share.ErrorIDException
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
 
@@ -32,7 +32,7 @@ object TokenManager {
   }
 
   suspend fun refresh(): Result<Tokens> {
-    val result = refreshToken?.let { ApiClient.refresh(it) } ?: return Result.failure(ErrorIDException(ErrID.NoLogin))
+    val result = refreshToken?.let { ApiClient.refresh(it) } ?: return Result.failure(ErrIDException(ErrID.NoLogin))
     val tokens = result.getOrNull()
     if (tokens == null) {
       refreshToken = null

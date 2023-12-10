@@ -1,10 +1,10 @@
 package net.kigawa.fns.frontend
 
 import net.kigawa.fns.frontend.component.header.Header
-import net.kigawa.fns.frontend.page.post.Post
-import net.kigawa.fns.frontend.page.top.Top
-import net.kigawa.fns.frontend.page.user.Login
-import net.kigawa.fns.frontend.page.user.Register
+import net.kigawa.fns.frontend.component.post.Post
+import net.kigawa.fns.frontend.component.top.Top
+import net.kigawa.fns.frontend.component.user.Login
+import net.kigawa.fns.frontend.component.user.Register
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.ThemeProvider
 import net.kigawa.fns.frontend.util.route.KutilRoute

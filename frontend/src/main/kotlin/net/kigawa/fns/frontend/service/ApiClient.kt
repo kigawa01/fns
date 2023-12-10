@@ -1,15 +1,18 @@
 package net.kigawa.fns.frontend.service
 
 import kotlinx.coroutines.await
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.kigawa.fns.frontend.util.HttpMethod
 import net.kigawa.fns.frontend.util.KutilUrl
 import net.kigawa.fns.share.ErrID
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.ErrResponseException
 import net.kigawa.fns.share.json.auth.LoginInfo
 import net.kigawa.fns.share.json.auth.Tokens
 import net.kigawa.fns.share.json.user.UserInfo
+import net.kigawa.fns.share.util.io.DefaultIo
 import org.w3c.fetch.RequestInit
 import web.url.URL
 import web.url.URLSearchParams
@@ -140,9 +143,12 @@ object ApiClient {
         return Result.success(Json.decodeFromString<T>(text))
       }
       return Result.failure(ErrResponseException(Json.decodeFromString(text)))
+    } catch (e: SerializationException) {
+      DefaultIo.warn.writeLine("failed to deserialize response")
+      DefaultIo.warn.writeLine(text)
+      DefaultIo.warn.writeLine(e.message ?: e.toString())
+      return Result.failure(ErrIDException(ErrID.DeserializeFailed))
     } catch (e: Exception) {
-      console.info("text", text)
-      e.printStackTrace()
       return Result.failure(e)
     }
   }

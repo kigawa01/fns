@@ -3,7 +3,7 @@ package net.kigawa.fns.backend.user
 import net.kigawa.fns.backend.table.UserTable
 import net.kigawa.fns.backend.user.entity.UserAuth
 import net.kigawa.fns.share.ErrID
-import net.kigawa.fns.share.ErrorIDException
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.user.UserInfo
 import net.kigawa.kutil.unitapi.annotation.Kunit
 import org.jetbrains.exposed.sql.insertAndGetId
@@ -18,7 +18,7 @@ class UserManager {
       UserTable.select {
         UserTable.id eq userId
       }.firstOrNull()
-    } ?: throw ErrorIDException(ErrID.UserNotExits)
+    } ?: throw ErrIDException(ErrID.UserNotExits)
     return UserInfo(result[UserTable.name])
   }
 
@@ -27,17 +27,17 @@ class UserManager {
       UserTable.select {
         UserTable.name eq username
       }.firstOrNull()
-    } ?: throw ErrorIDException(ErrID.UserNotExits)
+    } ?: throw ErrIDException(ErrID.UserNotExits)
     return UserAuth(result[UserTable.id].value, result[UserTable.name], result[UserTable.password])
   }
 
   fun register(userInfo: UserInfo): Int {
-    if (userInfo.password == "") throw ErrorIDException(ErrID.PasswordIsEmpty)
+    if (userInfo.password == "") throw ErrIDException(ErrID.PasswordIsEmpty)
 
-    if (transaction { UserTable.select { UserTable.name eq userInfo.username }.count() } != 0L) throw ErrorIDException(
+    if (transaction { UserTable.select { UserTable.name eq userInfo.username }.count() } != 0L) throw ErrIDException(
       ErrID.UserNameDuplicate
     )
-    if (transaction { UserTable.select { UserTable.email eq userInfo.email }.count() } != 0L) throw ErrorIDException(
+    if (transaction { UserTable.select { UserTable.email eq userInfo.email }.count() } != 0L) throw ErrIDException(
       ErrID.UserEmailDuplicate
     )
 

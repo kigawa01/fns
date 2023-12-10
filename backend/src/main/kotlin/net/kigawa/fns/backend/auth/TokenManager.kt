@@ -11,7 +11,7 @@ import net.kigawa.fns.backend.auth.entity.TokenResult
 import net.kigawa.fns.backend.auth.entity.TokenType
 import net.kigawa.fns.backend.util.respondErr
 import net.kigawa.fns.share.ErrID
-import net.kigawa.fns.share.ErrorIDException
+import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.util.KutilResult
 import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
@@ -39,18 +39,18 @@ class TokenManager(
             .build()
         )
         validate { credential ->
-          KutilResult.tryResult(ErrorIDException::class) {
+          KutilResult.tryResult(ErrIDException::class) {
             val id = credential.payload.getClaim(Token.ID_NAME)
-            if (id.isNull) throw ErrorIDException(ErrID.NullTokenID)
+            if (id.isNull) throw ErrIDException(ErrID.NullTokenID)
             val type = credential.payload.getClaim(Token.TYPE_NAME)
-            if (type.isNull) throw ErrorIDException(ErrID.NullTokenType)
+            if (type.isNull) throw ErrIDException(ErrID.NullTokenType)
             val expiresDate = credential.expiresAt
             if (expiresDate != null && LocalDateTime.now().toInstant(ZoneOffset.UTC).isAfter(expiresDate.toInstant()))
-              throw ErrorIDException(ErrID.ExpiresToken)
+              throw ErrIDException(ErrID.ExpiresToken)
             try {
               return@tryResult Token(id.asInt(), TokenType.valueOf(type.asString()))
             } catch (_: IllegalArgumentException) {
-              throw ErrorIDException(ErrID.UnknownTokenType)
+              throw ErrIDException(ErrID.UnknownTokenType)
             }
           }.let { TokenResult(it) }
         }
