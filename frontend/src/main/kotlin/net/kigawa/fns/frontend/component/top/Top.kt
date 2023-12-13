@@ -38,11 +38,7 @@ object Top : ComponentBase<Props>() {
         }
       }
 
-      ReactHTML.section {
-        ReactHTML.h2 {
-          +"新着の作品"
-        }
-      }
+      NewPost.fc {}
 
       ReactHTML.section {
         ReactHTML.h2 {
