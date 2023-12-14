@@ -5,7 +5,8 @@ import net.kigawa.fns.share.json.FileJson
 
 @Serializable
 data class GetPostRes(
-  var title: String = "",
+  val id: Int,
+  var title: String,
   var file: FileJson,
   var thumbnail: FileJson?,
 )

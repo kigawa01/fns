@@ -6,7 +6,7 @@ import net.kigawa.fns.frontend.component.top.Top
 import net.kigawa.fns.frontend.component.user.Login
 import net.kigawa.fns.frontend.component.user.Register
 import net.kigawa.fns.frontend.util.ComponentBase
-import net.kigawa.fns.frontend.util.hook.ThemeProvider
+import net.kigawa.fns.frontend.util.hook.StyleProvider
 import net.kigawa.fns.frontend.util.route.KutilRoute
 import react.ChildrenBuilder
 import react.Fragment
@@ -21,7 +21,7 @@ object Route : ComponentBase<Props>() {
 
   override fun ChildrenBuilder.component(props: Props) {
     ReactHTML.div {
-      ThemeProvider.fc {
+      StyleProvider.fc {
         ReactHTML.div {
 
           RouterProvider {

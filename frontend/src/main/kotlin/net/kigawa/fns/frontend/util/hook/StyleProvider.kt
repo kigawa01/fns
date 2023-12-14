@@ -5,7 +5,7 @@ import emotion.react.css
 import emotion.react.styles
 import js.promise.Promise
 import net.kigawa.fns.frontend.util.ComponentBase
-import net.kigawa.fns.share.json.ThemeJson
+import net.kigawa.fns.share.json.StyleJson
 import react.*
 import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
@@ -14,16 +14,16 @@ import web.cssom.Globals.Companion.unset
 import web.fonts.FontFace
 
 external interface ThemeProps : PropsWithChildren, PropsWithClassName
-object ThemeProvider : ComponentBase<ThemeProps>() {
+object StyleProvider : ComponentBase<ThemeProps>() {
 
-  private val ThemeContext: Context<ThemeJson> = createContext(ThemeJson())
-  private var themeSetter: StateSetter<ThemeJson>? = null
+  private val ThemeContext: Context<StyleJson> = createContext(StyleJson())
+  private var themeSetter: StateSetter<StyleJson>? = null
 
-  fun use(): ThemeJson {
+  fun use(): StyleJson {
     return useContext(ThemeContext)
   }
 
-  private fun loadFonts(theme: ThemeJson, setFont: StateSetter<String>) {
+  private fun loadFonts(theme: StyleJson, setFont: StateSetter<String>) {
     useEffect(theme) {
       val promises = theme.fonts.map { font ->
         return@map FontFace(font.name, "url(" + font.url + ")").load()
@@ -46,30 +46,33 @@ object ThemeProvider : ComponentBase<ThemeProps>() {
           padding = 0.px
           border = 0.px
         }
-
         ReactHTML.a {
           color = unset
           textDecoration = unset
         }
-
         ReactHTML.button {
           backgroundColor = unset
           fontFamily = string(font)
           cursor = Cursor.pointer
         }
-
         ReactHTML.h2 {
           fontFamily = string(font)
         }
         ReactHTML.li {
           listStyle = None.none
         }
+        ReactHTML.strong {
+          color = Color("red")
+        }
+        ReactHTML.img {
+          display = Display.block
+        }
       }
     }
   }
 
   override fun ChildrenBuilder.component(props: ThemeProps) {
-    val (theme, setTheme) = useState(ThemeJson())
+    val (theme, setTheme) = useState(StyleJson())
     val (font, setFont) = useState("")
     themeSetter = setTheme
 

@@ -3,7 +3,7 @@ package net.kigawa.fns.frontend.component.header
 import emotion.react.css
 import net.kigawa.fns.frontend.component.user.UserManager
 import net.kigawa.fns.frontend.util.ComponentBase
-import net.kigawa.fns.frontend.util.hook.ThemeProvider
+import net.kigawa.fns.frontend.util.hook.StyleProvider
 import react.ChildrenBuilder
 import react.PropsWithClassName
 import react.dom.html.ReactHTML
@@ -23,7 +23,7 @@ object Header : ComponentBase<PropsWithClassName>() {
   }
 
   private fun PropsWithClassName.style(props: PropsWithClassName) {
-    val theme = ThemeProvider.use()
+    val theme = StyleProvider.use()
     return css(props.className) {
       backgroundColor = Color(theme.main)
       paddingLeft = 30.px

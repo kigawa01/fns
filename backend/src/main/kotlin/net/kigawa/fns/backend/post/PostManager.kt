@@ -51,6 +51,7 @@ class PostManager {
     }.map { result ->
       transaction {
         GetPostRes(
+          result[PostTable.id].value,
           result[PostTable.title],
           FileTable
             .select { FileTable.id eq result[PostTable.file] }

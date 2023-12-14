@@ -5,7 +5,6 @@ import js.core.asList
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.channels.Channel
 import net.kigawa.fns.frontend.component.user.UserManager
-import net.kigawa.fns.frontend.service.PostManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.FileJson

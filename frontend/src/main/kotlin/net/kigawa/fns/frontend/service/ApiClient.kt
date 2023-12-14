@@ -45,18 +45,22 @@ object ApiClient {
   suspend inline fun <reified T : Any?> authedFetchJson(
     url: String,
     method: HttpMethod? = null,
+    searchParamsMap: Map<String, String>? = null,
   ) = authedFetchJson<T, Any?>(
-    url, method = method, body = null
+    url, method = method, body = null,
+    searchParamsMap = searchParamsMap
   )
 
-  private suspend inline fun <reified T : Any?> fetchJson(
+  suspend inline fun <reified T : Any?> fetchJson(
     url: String,
     method: HttpMethod? = null,
     token: String? = null,
+    searchParamsMap: Map<String, String>? = null,
   ) = fetchJson<T>(
     KutilUrl.createURL(url),
     method = method,
     token = token,
+    searchParamsMap = searchParamsMap,
   )
 
   suspend inline fun <reified T : Any?, reified B : Any?> fetchJson(
@@ -64,29 +68,34 @@ object ApiClient {
     method: HttpMethod? = null,
     token: String? = null,
     body: B? = null,
+    searchParamsMap: Map<String, String>? = null,
   ) = fetchJson<T, B>(
     KutilUrl.createURL(url),
     method = method,
     token = token,
     body = body,
+    searchParamsMap = searchParamsMap
   )
 
-  private suspend inline fun <reified T : Any?> fetchJson(
+  suspend inline fun <reified T : Any?> fetchJson(
     url: URL,
     method: HttpMethod? = null,
     searchParams: URLSearchParams? = null,
     requestInit: RequestInit = RequestInit(),
     token: String? = null,
     headers: MutableMap<String, String>? = null,
+    searchParamsMap: Map<String, String>? = null,
   ) = fetchJson<T, Any?>(
     url, method = method, searchParams = searchParams, requestInit = requestInit, headers = headers, token = token,
-    body = null
+    body = null,
+    searchParamsMap = searchParamsMap
   )
 
   suspend inline fun <reified T : Any?, reified B : Any?> authedFetchJson(
     url: String,
     method: HttpMethod? = null,
     body: B? = null,
+    searchParamsMap: Map<String, String>? = null,
   ): Result<T> {
     val firstResult = TokenManager.accessToken?.let {
       fetchJson<T, B>(
@@ -94,6 +103,7 @@ object ApiClient {
         method = method,
         body = body,
         token = it,
+        searchParamsMap = searchParamsMap
       )
     }
     if (firstResult?.isSuccess == true) return firstResult
@@ -117,6 +127,7 @@ object ApiClient {
     url: URL,
     method: HttpMethod? = null,
     searchParams: URLSearchParams? = null,
+    searchParamsMap: Map<String, String>? = null,
     requestInit: RequestInit = RequestInit(),
     headers: Map<String, String>? = null,
     token: String? = null,
@@ -125,6 +136,9 @@ object ApiClient {
     console.info("fetch", url, searchParams, requestInit)
     searchParams?.forEach { value, key ->
       url.searchParams.append(key, value)
+    }
+    searchParamsMap?.forEach {
+      url.searchParams.append(it.key, it.value)
     }
 
     requestInit.headers = (headers?.toMutableMap() ?: mutableMapOf()).apply {

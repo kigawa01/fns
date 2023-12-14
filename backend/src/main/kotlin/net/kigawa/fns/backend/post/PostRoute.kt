@@ -14,6 +14,7 @@ class PostRoute(
 ) {
   fun route(route: Route) {
     route.route("/post") {
+      getPosts()
       authenticate {
         postPost()
       }

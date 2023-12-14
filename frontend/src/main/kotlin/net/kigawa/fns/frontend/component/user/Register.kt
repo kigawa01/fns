@@ -8,7 +8,7 @@ import net.kigawa.fns.frontend.component.PageBase
 import net.kigawa.fns.frontend.service.TokenManager
 import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.KutilUrl
-import net.kigawa.fns.frontend.util.hook.ThemeProvider
+import net.kigawa.fns.frontend.util.hook.StyleProvider
 import react.*
 import react.dom.html.ReactHTML
 import react.router.Navigate
@@ -103,7 +103,7 @@ object Register : ComponentBase<Props>() {
   }
 
   private fun PropsWithClassName.style() {
-    val theme = ThemeProvider.use()
+    val theme = StyleProvider.use()
     return css {
       marginLeft = web.cssom.Auto.auto
       marginRight = web.cssom.Auto.auto
