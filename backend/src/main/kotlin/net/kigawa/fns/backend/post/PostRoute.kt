@@ -15,6 +15,7 @@ class PostRoute(
   fun route(route: Route) {
     route.route("/post") {
       getPosts()
+      getPost()
       authenticate {
         postPost()
       }
@@ -34,6 +35,13 @@ class PostRoute(
     val size = call.parameters["size"]?.toIntOrNull() ?: 16
     call.respond(
       postManager.getPosts(page, size)
+    )
+  }
+
+  private fun Route.getPost() = get("/{id}") {
+    val id = call.parameters["id"]!!.toInt()
+    call.respond(
+      postManager.getPost(id)
     )
   }
 

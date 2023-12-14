@@ -1,7 +1,9 @@
 package net.kigawa.fns.frontend
 
+import net.kigawa.fns.frontend.component.NotFound
 import net.kigawa.fns.frontend.component.header.Header
-import net.kigawa.fns.frontend.component.post.Post
+import net.kigawa.fns.frontend.component.post.PostPost
+import net.kigawa.fns.frontend.component.post.ShowPost
 import net.kigawa.fns.frontend.component.top.Top
 import net.kigawa.fns.frontend.component.user.Login
 import net.kigawa.fns.frontend.component.user.Register
@@ -13,6 +15,7 @@ import react.Fragment
 import react.Props
 import react.create
 import react.dom.html.ReactHTML
+import react.router.Navigate
 import react.router.Outlet
 import react.router.dom.RouterProvider
 
@@ -46,8 +49,20 @@ object Route : ComponentBase<Props>() {
                   element = Register.fc.create()
                 }
                 createRoute {
-                  path = "post"
-                  element = Post.fc.create()
+                  path = "post/"
+                  element = PostPost.fc.create()
+                }
+                createRoute {
+                  path = "post/:postId"
+                  element = ShowPost.fc.create()
+                }
+                createRoute {
+                  path = "notfound"
+                  element = NotFound.fc.create()
+                }
+                createRoute {
+                  path = "*"
+                  element = Navigate.create { to = "/notfound" }
                 }
               }
 

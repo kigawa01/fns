@@ -3,38 +3,26 @@ package net.kigawa.fns.frontend.component.top
 import emotion.react.css
 import net.kigawa.fns.frontend.component.post.PostManager
 import net.kigawa.fns.frontend.util.ComponentBase
+import net.kigawa.fns.frontend.util.hook.ApiHook
 import net.kigawa.fns.frontend.util.hook.StyleProvider
 import net.kigawa.fns.frontend.util.js.FontSize
 import net.kigawa.fns.frontend.util.js.ObjectPosition
-import net.kigawa.fns.share.ErrIDException
-import net.kigawa.fns.share.json.post.GetPostRes
-import net.kigawa.fns.share.util.concurrent.Coroutines
-import react.*
+import net.kigawa.fns.share.json.post.GetPostsRes
+import react.ChildrenBuilder
+import react.Fragment
+import react.Props
 import react.dom.html.ReactHTML
 import react.router.dom.Link
 import web.cssom.*
 
 object NewPost : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
-    val (works, setWorks) = useState<List<GetPostRes>>(listOf())
-    val (error, setError) = useState<String>()
     val style = StyleProvider.use()
 
-    useEffectOnce {
-      Coroutines.launchIo {
-        val result = getPosts()
-        result.getOrNull()?.let {
-          setWorks(it)
-          return@launchIo
-        }
-        val e = result.exceptionOrNull() ?: throw RuntimeException()
-        if (e is ErrIDException) {
-          setError(e.message)
-          return@launchIo
-        }
-        setError(e.message ?: e.toString())
-      }
+    val result = ApiHook.useApi(listOf()) {
+      getPosts()
     }
+
 
     Fragment {
       ReactHTML.section {
@@ -60,7 +48,7 @@ object NewPost : ComponentBase<Props>() {
             +"もっと見る"
           }
         }
-        error?.let {
+        result.err?.let {
           ReactHTML.p {
             ReactHTML.strong {
               +it
@@ -73,10 +61,11 @@ object NewPost : ComponentBase<Props>() {
             overflowX = Overflow.scroll
             padding = Padding(0.px, 0.px, 10.px, 0.px)
           }
-          works.map {
+          result.value.map {
             val thumbnail = it.thumbnail ?: it.file
 
-            ReactHTML.div {
+            Link {
+              to = "/post/${it.id}"
               key = it.title
               css {
                 backgroundColor = Color(style.base2)
@@ -131,7 +120,7 @@ object NewPost : ComponentBase<Props>() {
     }
   }
 
-  private suspend fun getPosts(): Result<List<GetPostRes>> {
+  private suspend fun getPosts(): Result<List<GetPostsRes>> {
     return PostManager.getPosts(0, 16)
   }
 }

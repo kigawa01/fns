@@ -5,10 +5,11 @@ import net.kigawa.fns.backend.table.PostTable
 import net.kigawa.fns.share.ErrID
 import net.kigawa.fns.share.ErrIDException
 import net.kigawa.fns.share.json.FileJson
-import net.kigawa.fns.share.json.post.GetPostRes
+import net.kigawa.fns.share.json.post.GetPostsRes
 import net.kigawa.fns.share.json.post.PostPostBody
 import net.kigawa.fns.share.json.post.PostPostRes
 import net.kigawa.kutil.unitapi.annotation.Kunit
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -42,27 +43,37 @@ class PostManager {
     return PostPostRes(id.value)
   }
 
-  fun getPosts(page: Long, size: Int): List<GetPostRes> {
-    return transaction {
-      return@transaction PostTable.selectAll()
-        .orderBy(PostTable.createAt)
-        .limit(size, page * size)
-        .toList()
-    }.map { result ->
-      transaction {
-        GetPostRes(
-          result[PostTable.id].value,
-          result[PostTable.title],
-          FileTable
-            .select { FileTable.id eq result[PostTable.file] }
-            .first()
-            .let { FileJson(it[FileTable.name], it[FileTable.type], it[FileTable.data]) },
-          result[PostTable.thumbnail]
-            ?.let { FileTable.select { FileTable.id eq it } }
-            ?.firstOrNull()
-            ?.let { FileJson(it[FileTable.name], it[FileTable.type], it[FileTable.data]) }
-        )
-      }
-    }
+  fun getPosts(page: Long, size: Int): List<GetPostsRes> = transaction {
+    PostTable.selectAll()
+      .orderBy(PostTable.createAt)
+      .limit(size, page * size)
+      .toList()
+  }.map {
+    createPostRes(it)
+  }
+
+
+  fun getPost(id: Int): GetPostsRes = transaction {
+    PostTable.select {
+      PostTable.id eq id
+    }.firstOrNull()
+  }?.let {
+    createPostRes(it)
+  } ?: throw ErrIDException(ErrID.PostNotFound)
+
+
+  private fun createPostRes(result: ResultRow) = transaction {
+    GetPostsRes(
+      result[PostTable.id].value,
+      result[PostTable.title],
+      FileTable
+        .select { FileTable.id eq result[PostTable.file] }
+        .first()
+        .let { FileJson(it[FileTable.name], it[FileTable.type], it[FileTable.data]) },
+      result[PostTable.thumbnail]
+        ?.let { FileTable.select { FileTable.id eq it } }
+        ?.firstOrNull()
+        ?.let { FileJson(it[FileTable.name], it[FileTable.type], it[FileTable.data]) }
+    )
   }
 }

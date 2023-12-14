@@ -23,6 +23,7 @@ enum class ErrID(val statusCode: HttpStatusCode? = null) {
 
   UserNameDuplicate(statusCode = HttpStatusCode.Conflict),
   UserEmailDuplicate(statusCode = HttpStatusCode.Conflict),
+  PostNotFound(statusCode = HttpStatusCode.NotFound),
 
   NoLogin,
   DeserializeFailed,

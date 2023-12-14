@@ -23,7 +23,7 @@ import web.file.File
 import web.file.FileReader
 import web.html.InputType
 
-object Post : ComponentBase<Props>() {
+object PostPost : ComponentBase<Props>() {
   override fun ChildrenBuilder.component(props: Props) {
     val (file, setFiles) = useState<File?>(null)
     val (title, setTitle) = useState("")
