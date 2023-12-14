@@ -14,7 +14,7 @@ import web.cssom.rem
 
 object UserNav : ComponentBase<PropsWithClassName>() {
   override fun ChildrenBuilder.component(props: PropsWithClassName) {
-    val userInfo = UserManager.useUser()
+    val currentUser = UserManager.useUser()
 
 
     div {
@@ -29,8 +29,8 @@ object UserNav : ComponentBase<PropsWithClassName>() {
             marginLeft = 20.px
           }
         }
-        userInfo?.let {
-          +userInfo.username
+        currentUser.userInfo?.let {
+          +it.username
         } ?: Fragment {
           Link {
             to = "/login"

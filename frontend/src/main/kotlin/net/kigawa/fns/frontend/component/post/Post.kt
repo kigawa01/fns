@@ -30,10 +30,9 @@ object Post : ComponentBase<Props>() {
     val (err, setErr) = useState<String?>(null)
     val (thumbnail, setThumbnail) = useState<File?>(null)
     val user = UserManager.useUser()
-    val isReady = UserManager.useIsReady()
 
 
-    if (isReady && user == null) Navigate {
+    if (user.isReady && user.userInfo == null) Navigate {
       to = "/login?redirect=/post"
     }
     else ReactHTML.div {

@@ -68,6 +68,11 @@ object NewPost : ComponentBase<Props>() {
           }
         }
         ReactHTML.div {
+          css {
+            display = Display.flex
+            overflowX = Overflow.scroll
+            padding = Padding(0.px, 0.px, 10.px, 0.px)
+          }
           works.map {
             val thumbnail = it.thumbnail ?: it.file
 
@@ -78,6 +83,7 @@ object NewPost : ComponentBase<Props>() {
                 border = Border(1.px, LineStyle.solid, Color(style.line))
                 width = 300.px
                 padding = 5.px
+                margin = Margin(0.px, 10.px)
               }
               ReactHTML.img {
                 src = thumbnail.fileData

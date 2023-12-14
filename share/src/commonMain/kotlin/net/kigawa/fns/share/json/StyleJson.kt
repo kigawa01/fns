@@ -7,7 +7,7 @@ class StyleJson {
   val accent: String = "#9FBCDF"
   val accent2: String = "#79A1D4"
   val plain: String = ""
-  val line = "#888"
+  val line = "#999"
   val textLight: String = "#eee"
   val textBase: String = ""
   val fonts: List<FontJson> = listOf()

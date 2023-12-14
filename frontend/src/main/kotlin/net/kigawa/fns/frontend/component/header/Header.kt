@@ -6,7 +6,6 @@ import net.kigawa.fns.frontend.util.ComponentBase
 import net.kigawa.fns.frontend.util.hook.StyleProvider
 import react.ChildrenBuilder
 import react.PropsWithClassName
-import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.header
 import web.cssom.*
 
@@ -39,10 +38,6 @@ object Header : ComponentBase<PropsWithClassName>() {
       "> *" {
         marginTop = Auto.auto
         display = Display.flex
-      }
-      ReactHTML.h1 {
-        marginLeft = 30.px
-        fontSize = 1.6.rem
       }
 
     }

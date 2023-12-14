@@ -11,8 +11,7 @@ import net.kigawa.fns.share.util.concurrent.Coroutines
 import net.kigawa.fns.share.util.io.DefaultIo
 
 object UserManager {
-  private val userState = GlobalState<UserInfo?>(null)
-  private val isReady = GlobalState(false)
+  private val userState = GlobalState<CurrentUser>(CurrentUser(false, null))
 
   init {
     Coroutines.launchIo {
@@ -21,18 +20,12 @@ object UserManager {
         refresh().getOrThrow()
       } catch (e: ErrIDException) {
         if (e.errID == ErrID.NoLogin) {
-          isReady.set(true)
+          userState.set(CurrentUser(true, null))
           return@launchIo
         }
         e.printStackTrace()
       } catch (e: Exception) {
         e.printStackTrace()
-      } catch (_: Throwable) {
-
-      } finally {
-        DefaultIo.info.writeLine("end init user manager")
-        DefaultIo.info.writeLine(isReady.toString())
-        isReady.set(true)
       }
     }
   }
@@ -49,12 +42,11 @@ object UserManager {
 
   suspend fun refresh(): Result<UserInfo> {
     val result = ApiClient.userInfo()
-    result.getOrNull()?.let { userState.set(it) }
+    result.getOrNull()?.let { userState.set(CurrentUser(true, it)) }
     return result
   }
 
-  fun useIsReady() = isReady.use()
-  fun useUser(): UserInfo? {
+  fun useUser(): CurrentUser {
     return userState.use()
   }
 }

@@ -41,7 +41,11 @@ kotlin {
         devServer?.apply {
           port = 8081
           proxy = mutableMapOf(Pair("/api", "http://127.0.0.1:8080"))
-          static!!.add(projectDir.resolve("src/main/resources/public").path)
+          static!!.addAll(
+            listOf(
+              projectDir.resolve("src/main/resources/public").path,
+            )
+          )
         }
       })
     }
