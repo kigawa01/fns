@@ -32,7 +32,7 @@ object Header : ComponentBase<PropsWithClassName>() {
       paddingBottom = 6.px
       boxSizing = BoxSizing.borderBox
       width = 100.pct
-      color = Color(theme.textAccent)
+      color = Color(theme.textLight)
       display = Display.flex
       justifyContent = JustifyContent.spaceBetween
 

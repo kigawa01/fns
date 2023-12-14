@@ -87,6 +87,7 @@ object StyleProvider : ComponentBase<ThemeProps>() {
           color = Color(theme.textBase)
           backgroundColor = Color(theme.base)
           fontFamily = string(font)
+          minHeight = 100.vh
         }
 
         children = props.children

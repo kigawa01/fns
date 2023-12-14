@@ -11,6 +11,7 @@ import net.kigawa.fns.share.json.post.GetPostRes
 import net.kigawa.fns.share.util.concurrent.Coroutines
 import react.*
 import react.dom.html.ReactHTML
+import react.router.dom.Link
 import web.cssom.*
 
 object NewPost : ComponentBase<Props>() {
@@ -37,8 +38,27 @@ object NewPost : ComponentBase<Props>() {
 
     Fragment {
       ReactHTML.section {
-        ReactHTML.h2 {
-          +"新着の作品"
+        css {
+          margin = Margin(30.px, 30.px)
+        }
+        ReactHTML.div {
+          css {
+            display = Display.flex
+            margin = Margin(20.px, 10.px)
+          }
+          ReactHTML.h2 {
+            +"新着の作品"
+          }
+          Link {
+            css {
+              border = Border(2.px, LineStyle.solid, Color(style.accent2))
+              display = Display.block
+              height = Length.fitContent
+              fontSize = FontSize(style.hFontSize1)
+              margin = Margin(0.px, 0.px, 0.px, 40.px)
+            }
+            +"もっと見る"
+          }
         }
         error?.let {
           ReactHTML.p {
@@ -72,7 +92,7 @@ object NewPost : ComponentBase<Props>() {
               ReactHTML.h3 {
                 +it.title
                 css {
-                  fontSize = FontSize(style.hFontSize3)
+                  fontSize = FontSize(style.hFontSize4)
                   textOverflow = TextOverflow.ellipsis
                   margin = Margin(0.px, 5.px)
                   width = 100.pct
