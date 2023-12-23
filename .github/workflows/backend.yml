@@ -2,7 +2,8 @@ name: backend cd
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "develop"
 
 jobs:
   build:
@@ -35,8 +36,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: BuildAndPushImageOnHarbor
         run: |
-          docker build ./backend -t harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}
-          docker push harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}
+          docker build ./backend -t harbor.kigawa.net/fns/fns-backend:${{ github.ref_name }}-${{ github.run_number }}
+          docker push harbor.kigawa.net/fns/fns-backend:${{ github.ref_name }}-${{ github.run_number }}
       # argo
       - name: checkout manifest repository
         uses: actions/checkout@v3
@@ -47,7 +48,7 @@ jobs:
 
       - name: Update YAML File
         run: |
-          yq -i '.spec.template.spec.containers[0].image = "harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}"' ./fns/fns.yml
+          yq -i '.spec.template.spec.containers[0].image = "harbor.kigawa.net/fns/fns-backend:${{ github.ref_name }}-${{ github.run_number }}"' ./fns/fns.yml
 
       - name: push
         run: |
