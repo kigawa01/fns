@@ -1,0 +1,58 @@
+name: backend cd
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # checkout
+      - uses: actions/checkout@v4
+      # build
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: shadowJar
+      # docker
+      - uses: docker/login-action@v1
+        with:
+          registry: harbor.kigawa.net
+          username: ${{ secrets.HARBOR_USER  }}
+          password: ${{ secrets.HARBOR_PASS }}
+
+      - uses: actions/checkout@v3
+      - name: BuildAndPushImageOnHarbor
+        run: |
+          docker build ./backend -t harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}
+          docker push harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}
+      # argo
+      - name: checkout manifest repository
+        uses: actions/checkout@v3
+        with:
+          repository: kigawa01/k8s
+          ref: main
+          token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Update YAML File
+        run: |
+          yq -i '.spec.template.spec.containers[0].image = "harbor.kigawa.net/fns/fns-backend:${{ github.run_number }}"' ./fns/fns.yml
+
+      - name: push
+        run: |
+          git config user.name githubActions
+          git config user.email bot@example.com
+          git add .
+          git commit --author=. -m "update rev"
+          git push
