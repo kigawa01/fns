@@ -10,6 +10,9 @@
     <option name="shortenCommandLine" value="NONE" />
     <option name="vmParameters" value="" />
     <option name="workingDirectory" value="" />
+    <envs>
+      <env name="DB_HOST" value="localhost" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
