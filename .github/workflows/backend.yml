@@ -47,7 +47,7 @@ jobs:
 
       - name: Update YAML File
         run: |
-          yq -i '.spec.template.spec.containers[0].image = "harbor.kigawa.net/fns/fns-backend:${{ github.ref_name }}-${{ github.run_number }}"' ./fns/fns.yml
+          yq -i '.spec.template.spec.containers[0].image = "harbor.kigawa.net/fns/fns-backend:${{ github.ref_name }}-${{ github.run_number }}"' ./fns/backend.yml
 
       - name: push
         run: |

@@ -13,6 +13,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 @Kunit
 class DatabaseManager(
   @ArgName("db.host") private val host: ApplicationConfigValue,
+  @ArgName("db.port") private val port: ApplicationConfigValue,
   @ArgName("db.database") private val databaseName: ApplicationConfigValue,
   @ArgName("db.user") private val user: ApplicationConfigValue,
   @ArgName("db.password") private val password: ApplicationConfigValue,
@@ -21,7 +22,7 @@ class DatabaseManager(
   private lateinit var database: Database
   fun init() {
     database = Database.connect(
-      "jdbc:mysql://${host.getString()}/${databaseName.getString()}",
+      "jdbc:mysql://${host.getString()}:${port.getString()}/${databaseName.getString()}",
       driver = "com.mysql.cj.jdbc.Driver",
       user = user.getString(),
       password = password.getString()

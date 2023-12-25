@@ -10,11 +10,12 @@ ktor:
       - net.kigawa.fns.backend.service.ModulesKt.loadModule
 
 jwt:
-  secret: ""
-  issuer: "ISSUER"
-  audience: "audience"
+  secret: ${JWT_SECRET}
+  issuer: ${JWT_ISSUER}
+  audience: ${JWT_AUDIENCE}
 db:
-  host: "localhost:3306"
-  database: "fns"
-  user: "fns"
-  password: ""
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  database: ${DB_NAME}
+  user: ${DB_USER}
+  password: ${DB_PASS}

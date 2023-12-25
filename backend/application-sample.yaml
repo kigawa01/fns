@@ -15,6 +15,7 @@ jwt:
   audience: "audience"
 db:
   host: localhost:3006
+  port: 3006
   database: fns
   user: fns
   password: fns-pass
