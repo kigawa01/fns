@@ -53,12 +53,16 @@ dependencies {
   implementation(Depends.Exposed.strId("exposed-dao"))
   implementation(Depends.Exposed.strId("exposed-jdbc"))
   implementation(Depends.Exposed.strId("exposed-jodatime"))
-  implementation("ch.qos.logback:logback-classic:$logbackVersion")
   implementation("org.mindrot:jbcrypt:0.4")
-  implementation("com.mysql:mysql-connector-j:8.1.0")
+  implementation("org.mariadb.jdbc:mariadb-java-client:3.3.2")
+//  implementation("com.mysql:mysql-connector-j:8.1.0")
   implementation("net.kigawa.kutil:kutil-unit:4.4.0")
   // https://mvnrepository.com/artifact/org.apache.commons/commons-imaging
   implementation("org.apache.commons:commons-imaging:1.0-alpha3")
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+  implementation("org.slf4j:slf4j-simple:2.0.9")
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+  implementation("org.slf4j:slf4j-api:2.0.9")
 
 
   testImplementation("io.ktor:ktor-server-tests-jvm:2.3.5")

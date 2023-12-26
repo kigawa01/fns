@@ -22,8 +22,8 @@ class DatabaseManager(
   fun init() {
     println("connect database: jdbc:mysql://${host.getString()}:${port.getString()}/${databaseName.getString()}")
     database = Database.connect(
-      "jdbc:mysql://${host.getString()}:${port.getString()}/${databaseName.getString()}",
-      driver = "com.mysql.cj.jdbc.Driver",
+      "jdbc:mariadb://${host.getString()}:${port.getString()}/${databaseName.getString()}",
+      driver = "org.mariadb.jdbc.Driver",
       user = user.getString(),
       password = password.getString()
     )
