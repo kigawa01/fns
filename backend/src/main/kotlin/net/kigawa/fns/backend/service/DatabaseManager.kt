@@ -5,7 +5,6 @@ import net.kigawa.kutil.unitapi.annotation.ArgName
 import net.kigawa.kutil.unitapi.annotation.Kunit
 import net.kigawa.kutil.unitapi.component.container.UnitContainer
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.Schema
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -29,11 +28,6 @@ class DatabaseManager(
       password = password.getString()
     )
 
-    Schema(databaseName.getString()).also {
-      transaction {
-        SchemaUtils.createSchema(it)
-      }
-    }
     transaction {
       SchemaUtils.create(*container.getUnitList(Table::class.java).toTypedArray())
     }
